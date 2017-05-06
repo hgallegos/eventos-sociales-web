@@ -41,10 +41,12 @@ Class EventoDTO{
      */
     public function setEventoFoto($EventoFoto){
 
-        $this->EventoFotoDTO = $EventoFoto;
+        $this->EventoFoto = $EventoFoto;
     }
 
-
+    public function addEventoFoto($elemento){
+        $this->EventoFoto[] = $elemento;
+    }
 
     public function setId($Id){
         $this->Id = $Id;
