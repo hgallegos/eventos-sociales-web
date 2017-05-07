@@ -2,38 +2,35 @@
 /**
  * Created by Mat-PHP-DTO-CREATOR.
  * User: matias_venegas
- * Date: 05-05-2017
- * Time: 19:14
+ * Date: 07-05-2017
+ * Time: 23:13
  */
-
 require_once (ROOT . '/dto/EventoFotoDTO.php');
-
 Class EventoDTO{
-    private $Id;
-    private $User_Id;
-    private $Categoria_Id;
-    private $Nombre;
-    private $Descripcion;
-    private $Fecha_Registro;
-    private $Fecha_Inicio;
-    private $Fecha_Fin;
-    private $Visibilidad;
-    private $P_Nombre;
-    private $P_Direccion;
-    private $P_Lat;
-    private $P_Lng;
-    private $P_Tipo;
-    private $EventoFoto;
+    private $id;
+    private $userId;
+    private $categoriaId;
+    private $nombre;
+    private $descripcion;
+    private $fechaRegistro;
+    private $fechaInicio;
+    private $fechaFin;
+    private $visibilidad;
+    private $pNombre;
+    private $pDireccion;
+    private $pLat;
+    private $pLng;
+    private $pTipo;
+    private $eventoFoto;
 
     public function __construct(){
     }
-
     /**
      * @return mixed
      */
     public function getEventoFoto()
     {
-        return $this->EventoFoto;
+        return $this->eventoFoto;
     }
 
     /**
@@ -41,123 +38,123 @@ Class EventoDTO{
      */
     public function setEventoFoto($EventoFoto){
 
-        $this->EventoFoto = $EventoFoto;
+        $this->eventoFoto = $EventoFoto;
     }
 
     public function addEventoFoto($elemento){
-        $this->EventoFoto[] = $elemento;
+        $this->eventoFoto[] = $elemento;
     }
 
-    public function setId($Id){
-        $this->Id = $Id;
+    public function setId($id){
+        $this->id = $id;
     }
 
-    public function setUserId($User_Id){
-        $this->User_Id = $User_Id;
+    public function setUserId($userId){
+        $this->userId = $userId;
     }
 
-    public function setCategoriaId($Categoria_Id){
-        $this->Categoria_Id = $Categoria_Id;
+    public function setCategoriaId($categoriaId){
+        $this->categoriaId = $categoriaId;
     }
 
-    public function setNombre($Nombre){
-        $this->Nombre = $Nombre;
+    public function setNombre($nombre){
+        $this->nombre = $nombre;
     }
 
-    public function setDescripcion($Descripcion){
-        $this->Descripcion = $Descripcion;
+    public function setDescripcion($descripcion){
+        $this->descripcion = $descripcion;
     }
 
-    public function setFechaRegistro($Fecha_Registro){
-        $this->Fecha_Registro = $Fecha_Registro;
+    public function setFechaRegistro($fechaRegistro){
+        $this->fechaRegistro = $fechaRegistro;
     }
 
-    public function setFechaInicio($Fecha_Inicio){
-        $this->Fecha_Inicio = $Fecha_Inicio;
+    public function setFechaInicio($fechaInicio){
+        $this->fechaInicio = $fechaInicio;
     }
 
-    public function setFechaFin($Fecha_Fin){
-        $this->Fecha_Fin = $Fecha_Fin;
+    public function setFechaFin($fechaFin){
+        $this->fechaFin = $fechaFin;
     }
 
-    public function setVisibilidad($Visibilidad){
-        $this->Visibilidad = $Visibilidad;
+    public function setVisibilidad($visibilidad){
+        $this->visibilidad = $visibilidad;
     }
 
-    public function setPNombre($P_Nombre){
-        $this->P_Nombre = $P_Nombre;
+    public function setPNombre($pNombre){
+        $this->pNombre = $pNombre;
     }
 
-    public function setPDireccion($P_Direccion){
-        $this->P_Direccion = $P_Direccion;
+    public function setPDireccion($pDireccion){
+        $this->pDireccion = $pDireccion;
     }
 
-    public function setPLat($P_Lat){
-        $this->P_Lat = $P_Lat;
+    public function setPLat($pLat){
+        $this->pLat = $pLat;
     }
 
-    public function setPLng($P_Lng){
-        $this->P_Lng = $P_Lng;
+    public function setPLng($pLng){
+        $this->pLng = $pLng;
     }
 
-    public function setPTipo($P_Tipo){
-        $this->P_Tipo = $P_Tipo;
+    public function setPTipo($pTipo){
+        $this->pTipo = $pTipo;
     }
 
     public function getId(){
-        return $this->Id;
+        return $this->id;
     }
 
     public function getUserId(){
-        return $this->User_Id;
+        return $this->userId;
     }
 
     public function getCategoriaId(){
-        return $this->Categoria_Id;
+        return $this->categoriaId;
     }
 
     public function getNombre(){
-        return $this->Nombre;
+        return $this->nombre;
     }
 
     public function getDescripcion(){
-        return $this->Descripcion;
+        return $this->descripcion;
     }
 
     public function getFechaRegistro(){
-        return $this->Fecha_Registro;
+        return $this->fechaRegistro;
     }
 
     public function getFechaInicio(){
-        return $this->Fecha_Inicio;
+        return $this->fechaInicio;
     }
 
     public function getFechaFin(){
-        return $this->Fecha_Fin;
+        return $this->fechaFin;
     }
 
     public function getVisibilidad(){
-        return $this->Visibilidad;
+        return $this->visibilidad;
     }
 
     public function getPNombre(){
-        return $this->P_Nombre;
+        return $this->pNombre;
     }
 
     public function getPDireccion(){
-        return $this->P_Direccion;
+        return $this->pDireccion;
     }
 
     public function getPLat(){
-        return $this->P_Lat;
+        return $this->pLat;
     }
 
     public function getPLng(){
-        return $this->P_Lng;
+        return $this->pLng;
     }
 
     public function getPTipo(){
-        return $this->P_Tipo;
+        return $this->pTipo;
     }
 
 }

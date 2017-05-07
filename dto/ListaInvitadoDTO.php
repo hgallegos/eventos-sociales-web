@@ -2,40 +2,40 @@
 /**
  * Created by Mat-PHP-DTO-CREATOR.
  * User: matias_venegas
- * Date: 05-05-2017
- * Time: 19:10
+ * Date: 07-05-2017
+ * Time: 23:21
  */
 
 Class ListaInvitadoDTO{
-    private $Id;
-    private $Evento_Id;
-    private $User_Id;
+    private $id;
+    private $eventoId;
+    private $userId;
 
     public function __construct(){
     }
 
-    public function setId($Id){
-        $this->Id = $Id;
+    public function setId($id){
+        $this->id = $id;
     }
 
-    public function setEventoId($Evento_Id){
-        $this->Evento_Id = $Evento_Id;
+    public function setEventoId($eventoId){
+        $this->eventoId = $eventoId;
     }
 
-    public function setUserId($User_Id){
-        $this->User_Id = $User_Id;
+    public function setUserId($userId){
+        $this->userId = $userId;
     }
 
     public function getId(){
-        return $this->Id;
+        return $this->id;
     }
 
     public function getEventoId(){
-        return $this->Evento_Id;
+        return $this->eventoId;
     }
 
     public function getUserId(){
-        return $this->User_Id;
+        return $this->userId;
     }
 
 }

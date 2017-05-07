@@ -2,58 +2,58 @@
 /**
  * Created by Mat-PHP-DTO-CREATOR.
  * User: matias_venegas
- * Date: 05-05-2017
- * Time: 19:12
+ * Date: 07-05-2017
+ * Time: 23:20
  */
 
 Class EventoFotoDTO{
-    private $Id;
-    private $Evento_Id;
-    private $Titulo;
-    private $Descripcion;
-    private $Url;
+    private $id;
+    private $eventoId;
+    private $titulo;
+    private $descripcion;
+    private $url;
 
     public function __construct(){
     }
 
-    public function setId($Id){
-        $this->Id = $Id;
+    public function setId($id){
+        $this->id = $id;
     }
 
-    public function setEventoId($Evento_Id){
-        $this->Evento_Id = $Evento_Id;
+    public function setEventoId($eventoId){
+        $this->eventoId = $eventoId;
     }
 
-    public function setTitulo($Titulo){
-        $this->Titulo = $Titulo;
+    public function setTitulo($titulo){
+        $this->titulo = $titulo;
     }
 
-    public function setDescripcion($Descripcion){
-        $this->Descripcion = $Descripcion;
+    public function setDescripcion($descripcion){
+        $this->descripcion = $descripcion;
     }
 
-    public function setUrl($Url){
-        $this->Url = $Url;
+    public function setUrl($url){
+        $this->url = $url;
     }
 
     public function getId(){
-        return $this->Id;
+        return $this->id;
     }
 
     public function getEventoId(){
-        return $this->Evento_Id;
+        return $this->eventoId;
     }
 
     public function getTitulo(){
-        return $this->Titulo;
+        return $this->titulo;
     }
 
     public function getDescripcion(){
-        return $this->Descripcion;
+        return $this->descripcion;
     }
 
     public function getUrl(){
-        return $this->Url;
+        return $this->url;
     }
 
 }

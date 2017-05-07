@@ -2,94 +2,94 @@
 /**
  * Created by Mat-PHP-DTO-CREATOR.
  * User: matias_venegas
- * Date: 05-05-2017
- * Time: 17:53
+ * Date: 07-05-2017
+ * Time: 23:22
  */
 
 Class PosicionDTO{
-    private $Id;
-    private $User_Id;
-    private $Fecha;
-    private $Nombre;
-    private $Direccion;
-    private $Lat;
-    private $Lng;
-    private $Tipo;
-    private $Defecto;
+    private $id;
+    private $userId;
+    private $fecha;
+    private $nombre;
+    private $direccion;
+    private $lat;
+    private $lng;
+    private $tipo;
+    private $defecto;
 
     public function __construct(){
     }
 
-    public function setId($Id){
-        $this->Id = $Id;
+    public function setId($id){
+        $this->id = $id;
     }
 
-    public function setUser_id($User_Id){
-        $this->User_Id = $User_Id;
+    public function setUserId($userId){
+        $this->userId = $userId;
     }
 
-    public function setFecha($Fecha){
-        $this->Fecha = $Fecha;
+    public function setFecha($fecha){
+        $this->fecha = $fecha;
     }
 
-    public function setNombre($Nombre){
-        $this->Nombre = $Nombre;
+    public function setNombre($nombre){
+        $this->nombre = $nombre;
     }
 
-    public function setDireccion($Direccion){
-        $this->Direccion = $Direccion;
+    public function setDireccion($direccion){
+        $this->direccion = $direccion;
     }
 
-    public function setLat($Lat){
-        $this->Lat = $Lat;
+    public function setLat($lat){
+        $this->lat = $lat;
     }
 
-    public function setLng($Lng){
-        $this->Lng = $Lng;
+    public function setLng($lng){
+        $this->lng = $lng;
     }
 
-    public function setTipo($Tipo){
-        $this->Tipo = $Tipo;
+    public function setTipo($tipo){
+        $this->tipo = $tipo;
     }
 
-    public function setDefecto($Defecto){
-        $this->Defecto = $Defecto;
+    public function setDefecto($defecto){
+        $this->defecto = $defecto;
     }
 
     public function getId(){
-        return $this->Id;
+        return $this->id;
     }
 
-    public function getUser_id(){
-        return $this->User_Id;
+    public function getUserId(){
+        return $this->userId;
     }
 
     public function getFecha(){
-        return $this->Fecha;
+        return $this->fecha;
     }
 
     public function getNombre(){
-        return $this->Nombre;
+        return $this->nombre;
     }
 
     public function getDireccion(){
-        return $this->Direccion;
+        return $this->direccion;
     }
 
     public function getLat(){
-        return $this->Lat;
+        return $this->lat;
     }
 
     public function getLng(){
-        return $this->Lng;
+        return $this->lng;
     }
 
     public function getTipo(){
-        return $this->Tipo;
+        return $this->tipo;
     }
 
     public function getDefecto(){
-        return $this->Defecto;
+        return $this->defecto;
     }
 
 }

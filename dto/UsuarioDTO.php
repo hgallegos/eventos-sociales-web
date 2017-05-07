@@ -2,85 +2,85 @@
 /**
  * Created by Mat-PHP-DTO-CREATOR.
  * User: matias_venegas
- * Date: 05-05-2017
- * Time: 17:52
+ * Date: 07-05-2017
+ * Time: 23:23
  */
 
 Class UsuarioDTO{
-    private $Id;
-    private $Usuario;
-    private $Contrasena;
-    private $Nombre;
-    private $Edad;
-    private $Email;
-    private $Token;
-    private $Nivel;
+    private $id;
+    private $usuario;
+    private $contrasena;
+    private $nombre;
+    private $edad;
+    private $email;
+    private $token;
+    private $nivel;
 
     public function __construct(){
     }
 
-    public function setId($Id){
-        $this->Id = $Id;
+    public function setId($id){
+        $this->id = $id;
     }
 
-    public function setUsuario($Usuario){
-        $this->Usuario = $Usuario;
+    public function setUsuario($usuario){
+        $this->usuario = $usuario;
     }
 
-    public function setContrasena($Contrasena){
-        $this->Contrasena = $Contrasena;
+    public function setContrasena($contrasena){
+        $this->contrasena = $contrasena;
     }
 
-    public function setNombre($Nombre){
-        $this->Nombre = $Nombre;
+    public function setNombre($nombre){
+        $this->nombre = $nombre;
     }
 
-    public function setEdad($Edad){
-        $this->Edad = $Edad;
+    public function setEdad($edad){
+        $this->edad = $edad;
     }
 
-    public function setEmail($Email){
-        $this->Email = $Email;
+    public function setEmail($email){
+        $this->email = $email;
     }
 
-    public function setToken($Token){
-        $this->Token = $Token;
+    public function setToken($token){
+        $this->token = $token;
     }
 
-    public function setNivel($Nivel){
-        $this->Nivel = $Nivel;
+    public function setNivel($nivel){
+        $this->nivel = $nivel;
     }
 
     public function getId(){
-        return $this->Id;
+        return $this->id;
     }
 
     public function getUsuario(){
-        return $this->Usuario;
+        return $this->usuario;
     }
 
     public function getContrasena(){
-        return $this->Contrasena;
+        return $this->contrasena;
     }
 
     public function getNombre(){
-        return $this->Nombre;
+        return $this->nombre;
     }
 
     public function getEdad(){
-        return $this->Edad;
+        return $this->edad;
     }
 
     public function getEmail(){
-        return $this->Email;
+        return $this->email;
     }
 
     public function getToken(){
-        return $this->Token;
+        return $this->token;
     }
 
     public function getNivel(){
-        return $this->Nivel;
+        return $this->nivel;
     }
 
 }
