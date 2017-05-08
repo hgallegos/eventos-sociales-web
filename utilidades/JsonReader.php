@@ -24,7 +24,7 @@ function jsonReader($params){
             $obj = $params->getObject();
             $result->setContent($contenido->$obj);
         }
-        $result->setContentName(generaNombre($obj) . 'DTO');
+        $result->setContentName(generaNombre(eliminaS($obj)) . 'DTO');
         $result->setStatus("Datos del servicio obtenidos correctamente.");
         $result->setDiePage(false);
         return $result;

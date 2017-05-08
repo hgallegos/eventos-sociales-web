@@ -8,6 +8,7 @@
 require_once (ROOT . '/utilidades/JsonReader.php');
 require_once (ROOT . '/utilidades/JsonToClass.php');
 require_once (ROOT . '/dto/EventoDTO.php');
+require_once (ROOT . '/utilidades/ClassToString.php');
 Class EventoService{
 
 
@@ -18,12 +19,15 @@ Class EventoService{
 
         $instrucciones = new GlobalParams();
         $instrucciones->setUrl(SERVICE . '/eventos');
-        $instrucciones->setObject(["eventos","evento"]);
+        //$instrucciones->setUrl('http://127.0.0.1:88/test.php');
+        $instrucciones->setObject("eventos");
 
         $respusta = jsonReader($instrucciones);
 
         $obj = JsonToClass($respusta);
-        echo $obj[0]->getNombre();
+
+        echo json_encode(ClassToString($obj[0]));
+
     }
 }
 ?>

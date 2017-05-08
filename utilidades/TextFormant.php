@@ -18,4 +18,19 @@ function generaNombre($data)
 function generaVarNombre($data){
     return lcfirst(generaNombre($data));
 }
+
+function generaVarEntidad($data){
+    if(strpos($data, '_') !== false){
+        return generaNombre($data);
+    }else{
+        return ucfirst($data);
+    }
+}
+
+function eliminaS($data){
+    if(substr($data, -1)){
+        return substr($data, 0, -1);
+    }
+
+}
 ?>

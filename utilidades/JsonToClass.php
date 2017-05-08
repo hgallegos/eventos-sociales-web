@@ -12,7 +12,7 @@ function JsonToClass($internal){
     if(false){
         $internal = new internalStatus();
     }
-    $nEntidad = $internal->getContentName();
+    $nEntidad = generaVarEntidad($internal->getContentName());
     $contenido = $internal->getContent();
     if (!file_exists(ROOT . '/dto/'. $nEntidad . '.php')) {
         $respond->setStatus("No existe la entidad " . $nEntidad);
@@ -26,8 +26,15 @@ function JsonToClass($internal){
         $New[$i] = new $nEntidad();
         foreach ($contenido[$i] as $key => $val) {
             //echo $key . ' => ' . $val . '<br />';
-            $col = 'set' . generaNombre($key);
+            $col = 'set' . generaVarEntidad($key);
             //echo $col . '<br />';
+            if(is_array($val)){
+                $Rec = new internalStatus();
+                $Rec->setContentName(eliminaS($key) . 'DTO');
+                $Rec->setContent($val);
+                $val = JsonToClass($Rec);
+                $col = eliminaS($col);
+            }
             if(method_exists($New[$i],$col)) {
                 $New[$i]->$col($val);
             }

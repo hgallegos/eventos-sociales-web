@@ -22,12 +22,32 @@ Class EventoDTO{
     private $pLng;
     private $pTipo;
     private $eventoFoto;
+    private $listaInvitado;
 
     public function __construct(){
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getListaInvitado()
+    {
+        return $this->listaInvitado;
+    }
+
+    /**
+     * @param mixed $listaInvitado
+     */
+    public function setListaInvitado($listaInvitado)
+    {
+        $this->listaInvitado = $listaInvitado;
     }
     /**
      * @return mixed
      */
+
+
+
     public function getEventoFoto()
     {
         return $this->eventoFoto;
