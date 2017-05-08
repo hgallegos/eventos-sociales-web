@@ -2,40 +2,40 @@
 /**
  * Created by Mat-PHP-DTO-CREATOR.
  * User: matias_venegas
- * Date: 05-05-2017
- * Time: 19:13
+ * Date: 07-05-2017
+ * Time: 23:21
  */
 
 Class EventoCategoriaDTO{
-    private $Id;
-    private $Nombre;
-    private $Descripcion;
+    private $id;
+    private $nombre;
+    private $descripcion;
 
     public function __construct(){
     }
 
-    public function setId($Id){
-        $this->Id = $Id;
+    public function setId($id){
+        $this->id = $id;
     }
 
-    public function setNombre($Nombre){
-        $this->Nombre = $Nombre;
+    public function setNombre($nombre){
+        $this->nombre = $nombre;
     }
 
-    public function setDescripcion($Descripcion){
-        $this->Descripcion = $Descripcion;
+    public function setDescripcion($descripcion){
+        $this->descripcion = $descripcion;
     }
 
     public function getId(){
-        return $this->Id;
+        return $this->id;
     }
 
     public function getNombre(){
-        return $this->Nombre;
+        return $this->nombre;
     }
 
     public function getDescripcion(){
-        return $this->Descripcion;
+        return $this->descripcion;
     }
 
 }

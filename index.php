@@ -16,16 +16,12 @@ if(file_exists ('/var/zpanel') && !isset($WINDOWSMODE)){
 }elseif (!isset($WINDOWSMODE)){
     define('ROOT',$_SERVER['DOCUMENT_ROOT']);
 }else{
-    define('ROOT','D:/xampp/htdocs/EventosSociales');
+    define('ROOT','C:\Proyectos\eventos-sociales-web');
 }
 
-require_once (ROOT . '/dto/EventoDTO.php');
-
-$ev = new EventoDTO();
-$ev->setCategoriaId("edpdldlpd");
-
-//echo 'Result: ' . $ev->getCategoriaId() . '<br />';
-echo json_encode($ev);
+require_once (ROOT . '/service/EventoService.php');
+$ser = new EventoService();
+$ser->obtieneJson();
 
 ob_end_flush();
 ?>

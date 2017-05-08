@@ -2,58 +2,58 @@
 /**
  * Created by Mat-PHP-DTO-CREATOR.
  * User: matias_venegas
- * Date: 05-05-2017
- * Time: 19:15
+ * Date: 07-05-2017
+ * Time: 23:20
  */
 
 Class ApiDTO{
-    private $Id;
-    private $User_Id;
-    private $Usuario;
-    private $Contrasena;
-    private $Estado;
+    private $id;
+    private $userId;
+    private $usuario;
+    private $contrasena;
+    private $estado;
 
     public function __construct(){
     }
 
-    public function setId($Id){
-        $this->Id = $Id;
+    public function setId($id){
+        $this->id = $id;
     }
 
-    public function setUserId($User_Id){
-        $this->User_Id = $User_Id;
+    public function setUserId($userId){
+        $this->userId = $userId;
     }
 
-    public function setUsuario($Usuario){
-        $this->Usuario = $Usuario;
+    public function setUsuario($usuario){
+        $this->usuario = $usuario;
     }
 
-    public function setContrasena($Contrasena){
-        $this->Contrasena = $Contrasena;
+    public function setContrasena($contrasena){
+        $this->contrasena = $contrasena;
     }
 
-    public function setEstado($Estado){
-        $this->Estado = $Estado;
+    public function setEstado($estado){
+        $this->estado = $estado;
     }
 
     public function getId(){
-        return $this->Id;
+        return $this->id;
     }
 
     public function getUserId(){
-        return $this->User_Id;
+        return $this->userId;
     }
 
     public function getUsuario(){
-        return $this->Usuario;
+        return $this->usuario;
     }
 
     public function getContrasena(){
-        return $this->Contrasena;
+        return $this->contrasena;
     }
 
     public function getEstado(){
-        return $this->Estado;
+        return $this->estado;
     }
 
 }

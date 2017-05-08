@@ -37,7 +37,7 @@ if (isset($_GET['tabla'])) {
     ?>
     <?php
     for ($j = 0; $j < sizeof($dato0); $j++) {
-        echo 'private $' . $dato0[$j] . ';<br />';
+        echo 'private $' . generaVarNombre($dato0[$j]) . ';<br />';
     }
     ?><br/>
     public function __construct(){<br/>
@@ -45,13 +45,13 @@ if (isset($_GET['tabla'])) {
 
     <?php
     for ($j = 0; $j < sizeof($dato0); $j++) {
-        echo 'public function set' . generaNombre($dato0[$j]) . '($' . $dato0[$j] . '){<br />';
-        echo '$this->' . $dato0[$j] . ' = $' . $dato0[$j] . ';<br />';
+        echo 'public function set' . generaNombre($dato0[$j]) . '($' . generaVarNombre($dato0[$j]) . '){<br />';
+        echo '$this->' . generaVarNombre($dato0[$j]) . ' = $' . generaVarNombre($dato0[$j]). ';<br />';
         echo '}<br /><br />';
     }
     for ($j = 0; $j < sizeof($dato0); $j++) {
         echo 'public function get' . generaNombre($dato0[$j]) . '(){<br />';
-        echo 'return $this->' . $dato0[$j] . ';<br />';
+        echo 'return $this->' . generaVarNombre($dato0[$j]) . ';<br />';
         echo '}<br /><br />';
     }
     ?>
@@ -69,5 +69,10 @@ function generaNombre($data)
     }
     return $return;
 }
+
+function generaVarNombre($data){
+    return lcfirst(generaNombre($data));
+}
+
 
 ?>
