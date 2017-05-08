@@ -10,10 +10,56 @@ class GlobalParams{
     private $page;
     private $size;
     private $sort;
+    private $id;
     private $object;
+
+    private $procesing;
 
     public function __construct(){
     }
+
+    private function AllURL(){
+        $this->procesing = "";
+        if($this->page != null){
+            $this->procesing = "page=" . $this->page;
+        }
+        if($this->size != null){
+            if($this->procesing != ""){
+                $this->procesing .= "&size=" . $this->size;
+            }else{
+                $this->procesing .= "size=" . $this->size;
+            }
+        }
+        if($this->sort != null){
+            if($this->procesing != ""){
+                $this->procesing .= "&sort=" . $this->sort;
+            }else{
+                $this->procesing .= "sort=" . $this->sort;
+            }
+        }
+        if($this->procesing != ""){
+            $this->procesing = "?" . $this->procesing;
+        }
+
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+
 
     /**
      * @return mixed
@@ -36,9 +82,15 @@ class GlobalParams{
     /**
      * @return mixed
      */
-    public function getUrl()
+    public function getUrl($type)
     {
-        return $this->url;
+        switch ($type){
+            case 'All':
+                $this->AllURL();
+                break;
+
+        }
+        return $this->url . $this->procesing;
     }
 
     /**

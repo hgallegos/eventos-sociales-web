@@ -6,6 +6,22 @@
  * Time: 14:32
  *  *
  */
+function ClassToJson($obj,$object_name){
+    $result = '{"'  . $object_name . '": [';
+    if(is_array($obj) && sizeof($obj) > 1){
+        for($i = 0; $i < sizeof($obj); $i++){
+            if($i == 0) {
+                $result .= json_encode(ClassToString($obj[$i]));
+            }else{
+                $result .= "," . json_encode(ClassToString($obj[$i]));
+            }
+        }
+    }else{
+        $result .= json_encode(ClassToString($obj[0]));
+    }
+    $result .= ']}';
+    return $result;
+}
 function ClassToString($class){
     $joinedProperties = array();
     do {

@@ -14,7 +14,7 @@ function jsonReader($params){
         $params = new GlobalParams(); //Debug PHPStorm
     }
     $result = new internalStatus();
-    if($respond = file_get_contents($params->getUrl())) {
+    if($respond = file_get_contents($params->getUrl("All"))) {
         $contenido = json_decode($respond)->_embedded;
         if (is_array($params->getObject())){
             $obj = $params->getObject();

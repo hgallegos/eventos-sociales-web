@@ -21,12 +21,13 @@ Class EventoService{
         $instrucciones->setUrl(SERVICE . '/eventos');
         //$instrucciones->setUrl('http://127.0.0.1:88/test.php');
         $instrucciones->setObject("eventos");
+        $instrucciones->setSize("10");
 
         $respusta = jsonReader($instrucciones);
 
         $obj = JsonToClass($respusta);
 
-        echo json_encode(ClassToString($obj[0]));
+        echo ClassToJson($obj,"evento");
 
     }
 }
