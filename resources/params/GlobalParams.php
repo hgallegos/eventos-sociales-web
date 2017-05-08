@@ -5,7 +5,7 @@
  * Date: 07-05-2017
  * Time: 18:27
  */
-class eventosParams{
+class GlobalParams{
     private $url;
     private $page;
     private $size;

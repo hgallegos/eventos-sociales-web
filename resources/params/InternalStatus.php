@@ -10,9 +10,28 @@ class internalStatus{
     private $diePage;
     private $status;
     private $content;
+    private $content_name;
 
     public function __construct(){
     }
+
+    /**
+     * @return mixed
+     */
+    public function getContentName()
+    {
+        return $this->content_name;
+    }
+
+    /**
+     * @param mixed $content_name
+     */
+    public function setContentName($content_name)
+    {
+        $this->content_name = $content_name;
+    }
+
+
 
     /**
      * @return mixed

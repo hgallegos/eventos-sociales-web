@@ -5,6 +5,9 @@
  * Date: 07-05-2017
  * Time: 18:54
  */
+require_once (ROOT . '/utilidades/JsonReader.php');
+require_once (ROOT . '/utilidades/JsonToClass.php');
+require_once (ROOT . '/dto/EventoDTO.php');
 Class EventoService{
 
 
@@ -12,15 +15,15 @@ Class EventoService{
     }
 
     public function obtieneJson(){
-        require_once (ROOT . '/utilidades/JsonReader.php');
 
-        $instrucciones = new eventosParams();
-        $instrucciones->setUrl('http://192.95.15.158:9090/eventos');
-        $instrucciones->setObject("eventos");
+        $instrucciones = new GlobalParams();
+        $instrucciones->setUrl(SERVICE . '/eventos');
+        $instrucciones->setObject(["eventos","evento"]);
 
         $respusta = jsonReader($instrucciones);
 
-        echo var_dump($respusta->getContent());
+        $obj = JsonToClass($respusta);
+        echo $obj[0]->getNombre();
     }
 }
 ?>
