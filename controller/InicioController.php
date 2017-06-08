@@ -5,20 +5,33 @@
  * Date: 08-05-2017
  * Time: 12:37
  */
-
+require_once (ROOT . '/service/InicioService.php');
 class InicioController{
 
-    private $url;
+    private $params;
+    private $basic;
 
-    public function __construct($url){
-        $this->url = $url;
+    public function __construct($params){
+        $this->params = $params;
+        $this->basic = $params->params;
+        if(false){
+            $this->basic = new UrlParams();
+        }
+        $this->service = new InicioService($this->basic);
     }
 
     public function printWeb(){
+        $content = '';
+        $content .= $this->params->callHeader();
+        $content .= $this->params->callMenu();
+        $content .= $this->service->ConstructorWeb();
+        $content .= $this->params->callFooter();
+        return $content;
     }
 
     public function functionMode(){
 
     }
+
 
 }

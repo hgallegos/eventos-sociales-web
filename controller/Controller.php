@@ -8,37 +8,66 @@
 require_once (ROOT . '/utilidades/UrlToClass.php');
 class Controller{
 
-    private $url;
+    public $params;
     private $controller;
 
     public function __construct(){
-        $this->url = UrlToClass($_GET);
+        $this->params = UrlToClass($_GET);
         $this->selectController();
     }
 
     private function selectController(){
-        switch ($this->url->getPage()){
+        switch ($this->params->getPage()){
             case 'evento':
                 require_once (ROOT . '/controller/EventoController.php');
-                $this->controller = new EventoController($this->url);
+                $this->controller = new EventoController($this);
+                break;
+
+            case 'perfil':
+                require_once (ROOT . '/controller/PerfilController.php');
+                $this->controller = new PerfilController($this);
                 break;
 
             case 'inicio':
             default:
                 require_once (ROOT . '/controller/InicioController.php');
-                $this->controller = new InicioController($this->url);
+                $this->controller = new InicioController($this);
                 break;
         }
     }
 
+    public function callHeader(){
+        ob_start();
+        require_once (ROOT . '/resources/templates/header.php');
+        return ob_get_clean();
+    }
+
+    public function callMenu(){
+        ob_start();
+        require_once (ROOT . '/resources/templates/menu.php');
+        return ob_get_clean();
+    }
+
+    public function callFooter($includeFooter = true){
+        ob_start();
+        require_once (ROOT . '/resources/templates/footer.php');
+        return ob_get_clean();
+    }
+
+    public function callScript($ruta){
+        ob_start();
+        require_once (ROOT . '/resources/templates/scripts/' . $ruta . '.php');
+        return ob_get_clean();
+    }
 
 
     public function printWeb(){
-        if ($this->url->getFMode()){
-            $this->controller->functionMode();
+        if ($this->params->getFMode()){
+            $opt = $this->controller->functionMode();
         }else {
-            $this->controller->printWeb();
+            $opt = $this->controller->printWeb();
         }
+        return $opt;
     }
 }
 ?>
