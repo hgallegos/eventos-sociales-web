@@ -8,16 +8,27 @@
 require_once (ROOT . '/service/EventoService.php');
 class EventoController{
 
-    private $url;
     private $service;
+    private $params;
+    private $basic;
 
-    public function __construct($url){
-        $this->url = $url;
-        $this->service = new EventoService();
+    public function __construct($params){
+        $this->params = $params;
+        $this->basic = $params->params;
+        if(false){
+            $this->basic = new UrlParams();
+        }
+        $this->service = new EventoService($this->basic);
     }
 
     public function printWeb(){
-        $this->service->obtieneJson();
+        $content = '';
+        $content .= $this->params->callHeader();
+        $content .= $this->params->callMenu();
+        $content .= $this->service->ConstructorWeb();
+        $content .= $this->params->callFooter(false);
+        $content .= $this->service->capturaScript();
+        return $content;
     }
 
     public function functionMode(){

@@ -14,7 +14,7 @@ if(file_exists ('/var/zpanel') && !isset($WINDOWSMODE)){
 }elseif (!isset($WINDOWSMODE)){
     define('ROOT',$_SERVER['DOCUMENT_ROOT']);
 }else{
-    //define('ROOT','C:\Proyectos\eventos-sociales-web');
-    define('ROOT','D:\xampp\htdocs\EventosSociales');
+    define('ROOT','C:\Proyectos\eventos-sociales-web');
+    //define('ROOT','D:\xampp\htdocs\EventosSociales');
 }
 ?>
