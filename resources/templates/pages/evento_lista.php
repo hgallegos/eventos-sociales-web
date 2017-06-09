@@ -47,7 +47,9 @@
                     <p>No existen resultados.</p>
                  <?php
                 }
-                 for($i = 0; $i < $size; $i++){ ?>
+                 for($i = 0; $i < $size; $i++){
+                     $url = explode("/",$evento[$i]->_links->self->href);
+                    ?>
                 <div class="col-sm-6">
                     <div class="directory-item">
                         <?php if(sizeof($evento[$i]->listaFotos) > 0){ ?>
@@ -59,7 +61,7 @@
 <!--                        <div class="rating">4.0</div>-->
                         <a href="" class="wishlist"><img src="images/directory-heart.png" alt="wishlist"></a>
                         <div class="content">
-                            <h3><a href=""><?= $evento[$i]->nombre ?></a></h3>
+                            <h3><a href="index.php?page=evento&id=<?= $url[4] ?>"><?= $evento[$i]->nombre ?></a></h3>
                             <p>[<?= date("Y-m-d",strtotime($evento[$i]->fechaInicio)) ?> | <?= date("Y-m-d",strtotime($evento[$i]->fechaFin)) ?>] </p>
                             <p><?= substr($evento[$i]->descripcion,0,80) ?></p>
                             <div class="location" onclick="reload(<?= $evento[$i]->pLat ?>,<?= $evento[$i]->pLng ?>)"><img src="images/directory-location.png" alt="location"><?= $evento[$i]->pDireccion ?></div>

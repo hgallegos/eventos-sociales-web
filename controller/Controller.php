@@ -17,6 +17,9 @@ class Controller{
     }
 
     private function selectController(){
+        if(SSL){
+            $this->checkSSL();
+        }
         switch ($this->params->getPage()){
             case 'evento':
                 require_once (ROOT . '/controller/EventoController.php');
@@ -58,6 +61,12 @@ class Controller{
         ob_start();
         require_once (ROOT . '/resources/templates/scripts/' . $ruta . '.php');
         return ob_get_clean();
+    }
+
+    private function checkSSL(){
+        if(!isset($_SERVER['HTTPS'])){
+            header('Location: ' . 'https://' . $_SERVER[HTTP_HOST] . $_SERVER[REQUEST_URI]);
+        }
     }
 
 

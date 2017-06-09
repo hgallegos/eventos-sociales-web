@@ -23,11 +23,19 @@ class EventoController{
 
     public function printWeb(){
         $content = '';
-        $content .= $this->params->callHeader();
-        $content .= $this->params->callMenu();
-        $content .= $this->service->ConstructorWeb();
-        $content .= $this->params->callFooter(false);
-        $content .= $this->service->capturaScript();
+        if($this->basic->getId() > 0) {
+            $content .= $this->params->callHeader();
+            $content .= $this->params->callMenu();
+            $content .= $this->service->ConstructorWebEvento();
+            $content .= $this->params->callFooter(false);
+            $content .= $this->service->capturaScriptVer();
+        }else{
+            $content .= $this->params->callHeader();
+            $content .= $this->params->callMenu();
+            $content .= $this->service->ConstructorWeb();
+            $content .= $this->params->callFooter(false);
+            $content .= $this->service->capturaScript();
+        }
         return $content;
     }
 

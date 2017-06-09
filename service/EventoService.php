@@ -33,6 +33,14 @@ Class EventoService{
         return $data;
     }
 
+    private function getEventoUno($id){
+        $instrucciones = new GlobalParams();
+        $instrucciones->setUrl(SERVICE . '/eventos/' . $id);
+
+        $data = getData($instrucciones);
+        return $data;
+    }
+
     private function getCategoria(){
         $instrucciones = new GlobalParams();
         $instrucciones->setUrl(SERVICE . '/evento_categorias');
@@ -49,6 +57,10 @@ Class EventoService{
 
     }
 
+    public function ConstructorWebEvento(){
+        return $this->capturaWebEvento();
+    }
+
     private function nextPage($page){
         if($this->params->getList() +1 < $page->totalPages){
             return 'index.php?page=evento&list=' . ($this->params->getList() + 1) ;
@@ -61,6 +73,21 @@ Class EventoService{
             return 'index.php?page=evento&list=' . ($this->params->getList() - 1) ;
         }
         return '#';
+    }
+
+    private function capturaWebEvento(){
+        ob_start();
+        $data = $this->getEventoUno($this->params->getId());
+        if($data->getDiePage()){
+            $msg = $data->getStatus();
+            error_reporting(0);
+            require_once (ROOT . '/resources/templates/pages/404.php');
+        }else {
+            $data = $data->getContent();
+            $this->cache = $data;
+            require_once(ROOT . '/resources/templates/pages/ver_evento.php');
+        }
+        return ob_get_clean();
     }
 
 
@@ -92,6 +119,13 @@ Class EventoService{
         $evento = $this->cache->getContent()->_embedded->eventos;
         $evento_page = $this->cache->getContent()->page; //totalElements
         require_once(ROOT . '/resources/templates/scripts/evento_lista.php');
+        return ob_get_clean();
+    }
+
+    public function capturaScriptVer(){
+        ob_start();
+        $data = $this->cache;
+        require_once(ROOT . '/resources/templates/scripts/ver_evento.php');
         return ob_get_clean();
     }
 

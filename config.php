@@ -28,4 +28,7 @@ define('CATEGORIA', json_encode(array(
     '6' => 'highlight-nightlife.png',
     'DEFAULT' => 'highlight-food.png'
 )));
+
+// Forzar SSL
+define('SSL',true);
 ?>
