@@ -36,42 +36,19 @@
                     <div class="col-md-8 col-md-offset-2">
                         <p class="lead">O navega en nuestras categorias</p>
                         <div class="highlight-slider">
-                            <div class="item">
-                                <a href="" class="icon">
-                                    <img src="images/highlight-food.png" alt="food">
-                                    <div class="overlay">Food</div>
-                                </a> <!-- end .icon -->
-                            </div> <!-- end .item -->
-                            <div class="item">
-                                <a href="" class="icon">
-                                    <img src="images/highlight-lodging.png" alt="lodging">
-                                    <div class="overlay">Lodging</div>
-                                </a> <!-- end .icon -->
-                            </div> <!-- end .item -->
-                            <div class="item">
-                                <a href="" class="icon">
-                                    <img src="images/highlight-culture.png" alt="culture">
-                                    <div class="overlay">Culture</div>
-                                </a> <!-- end .icon -->
-                            </div> <!-- end .item -->
-                            <div class="item">
-                                <a href="" class="icon">
-                                    <img src="images/highlight-shopping.png" alt="shopping">
-                                    <div class="overlay">Shopping</div>
-                                </a> <!-- end .icon -->
-                            </div> <!-- end .item -->
-                            <div class="item">
-                                <a href="" class="icon">
-                                    <img src="images/highlight-nightlife.png" alt="nightlife">
-                                    <div class="overlay">Nightlife</div>
-                                </a> <!-- end .icon -->
-                            </div> <!-- end .item -->
-                            <div class="item">
-                                <a href="" class="icon">
-                                    <img src="images/highlight-drink.png" alt="drink">
-                                    <div class="overlay">Drink</div>
-                                </a> <!-- end .icon -->
-                            </div> <!-- end .item -->
+                            <?php
+                            for($i = 0; $i < $categoria_tamanio; $i++){
+                                $img = explode("/",$categoria[$i]->_links->self->href);
+                                ?>
+                                <div class="item">
+                                    <a href="" class="icon">
+                                        <img src="images/<?= $this->getCategoriaIMG($img[4]) ?>" alt="food">
+                                        <div class="overlay"><?= $categoria[$i]->nombre ?></div>
+                                    </a> <!-- end .icon -->
+                                </div> <!-- end .item -->
+                                <?php
+                            }
+                            ?>
                         </div> <!-- end .highlight-slider -->
                     </div> <!-- end .col-md-8 -->
                 </div> <!-- end .row -->

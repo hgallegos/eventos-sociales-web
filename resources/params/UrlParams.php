@@ -16,6 +16,7 @@ class UrlParams{
     private $mail;
     private $password;
     private $nivel;
+    private $list;
 
     public function __construct(){
         $this->isLogged = false;
@@ -44,6 +45,24 @@ class UrlParams{
     {
         $this->function = $function;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getList()
+    {
+        return $this->list;
+    }
+
+    /**
+     * @param mixed $list
+     */
+    public function setList($list)
+    {
+        $this->list = $list;
+    }
+
+
 
 
 

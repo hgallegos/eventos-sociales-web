@@ -35,6 +35,16 @@ Class InicioService{
 
     }
 
+    private function getCategoriaIMG($id){
+        $arr = json_decode(CATEGORIA);
+        foreach ($arr as $key => $value){
+            if($key == $id){
+                return $value;
+            }
+        }
+        return $arr->DEFAULT;
+    }
+
     private function capturaWeb(){
         ob_start();
         $categoria_array = $this->getCategoria();

@@ -5,7 +5,7 @@
  * Date: 08-05-2017
  * Time: 12:02
  */
-$WINDOWSMODE = true;
+//$WINDOWSMODE = true;
 
 define('SERVICE', 'http://192.95.15.158:9090');
 
@@ -14,7 +14,18 @@ if(file_exists ('/var/zpanel') && !isset($WINDOWSMODE)){
 }elseif (!isset($WINDOWSMODE)){
     define('ROOT',$_SERVER['DOCUMENT_ROOT']);
 }else{
-    define('ROOT','C:\Proyectos\eventos-sociales-web');
-    //define('ROOT','D:\xampp\htdocs\EventosSociales');
+    //define('ROOT','C:\Proyectos\eventos-sociales-web');
+    define('ROOT','D:\xampp\htdocs\eventos-sociales-web');
 }
+
+//Categorias
+define('CATEGORIA', json_encode(array(
+    '1' => 'highlight-culture.png',
+    '2' => 'highlight-food.png',
+    '3' => 'highlight-lodging.png',
+    '4' => 'highlight-drink.png',
+    '5' => 'highlight-shopping.png',
+    '6' => 'highlight-nightlife.png',
+    'DEFAULT' => 'highlight-food.png'
+)));
 ?>

@@ -10,11 +10,12 @@
 
     /*==========  Map  ==========*/
     var map;
-    function initialize_map() {
+
+    function initialize_map(x,y) {
         if ($('.map').length) {
-            var myLatLng = new google.maps.LatLng(40.716269,-74.004566);
+            var myLatLng = new google.maps.LatLng(x,y);
             var mapOptions = {
-                zoom: 17,
+                zoom: 10,
                 center: myLatLng,
                 scrollwheel: true,
                 zoomControl: true,
@@ -26,30 +27,37 @@
         } else {
             return false;
         }
+        <?php
+        $size = sizeof($evento);
+        for($i = 0; $i < $size; $i++){ ?>
 
-        var marker1LatLng = new google.maps.LatLng(40.715756,-74.005339);
-        marker1 = new RichMarker({
-            position: marker1LatLng,
+        var marker<?= $i ?>LatLng = new google.maps.LatLng(<?= $evento[$i]->pLat ?>,<?= $evento[$i]->pLng ?>);
+        marker<?= $i ?> = new RichMarker({
+            position: marker<?= $i ?>LatLng,
             map: map,
             draggable: false,
             flat: true,
-            content: '<div class="marker-wrapper" id="marker1">' +
+            content: '<div class="marker-wrapper" id="marker<?= $i ?>">' +
             '<div class="marker"><div class="hover"></div><div class="inner"><img src="images/directory-category-drink.png" alt="icon"></div></div>' +
             '<div class="directory-item">' +
+            <?php if(sizeof($evento[$i]->listaFotos) > 0){ ?>
+            '<img src="<?= $evento[$i]->listaFotos[0]->url ?>"  alt="<?= $evento[$i]->listaFotos[0]->titulo ?>" class="img-responsive">' +
+            <?php }else{ ?>
             '<img src="images/directory-slider01.jpg" alt="bg" class="img-responsive">' +
+            <?php } ?>
             '<div class="overlay"></div>' +
-            '<div class="rating">4.0</div>' +
             '<div class="content">' +
-            '<h3><a href="">Not Just Coffee</a></h3>' +
-            '<div class="location"><img src="images/directory-location.png" alt="location">Thomas St , NewYork</div>' +
+            '<h3><a href=""><?= $evento[$i]->nombre ?></a></h3>' +
+            '<div class="location"><img src="images/directory-location.png" alt="location"><?= $evento[$i]->pDireccion ?></div>' +
             '</div> <!-- end .content -->' +
             '</div> <!-- end .directory-item -->' +
             '</div>'
         });
-        google.maps.event.addListener(marker1, 'click', function() {
+        google.maps.event.addListener(marker<?= $i ?>, 'click', function() {
             $('.marker-wrapper').removeClass('open');
-            $('#marker1').toggleClass('open');
+            $('#marker<?= $i ?>').toggleClass('open');
         });
+        <?php } ?>
 
 
 
@@ -57,6 +65,11 @@
 
         return false;
     }
-    google.maps.event.addDomListener(window, 'load', initialize_map);
+    google.maps.event.addDomListener(window, 'load', initialize_map(<?= $evento[0]->pLat ?>,<?= $evento[0]->pLng ?>));
+
+    function reload(x,y) {
+        console.log('Reiniciado ' + x + ' - ' + y);
+        google.maps.event.addDomListener(window, 'reload', initialize_map(x,y));
+    }
 
 </script>
