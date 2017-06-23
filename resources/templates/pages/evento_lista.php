@@ -5,37 +5,44 @@
     <div class="right">
         <div class="inner">
             <div class="directory-filters">
-                <form>
+                <form method="POST" action="index.php?page=evento">
                     <div class="row">
                         <div class="col-sm-4">
                             <div class="form-group">
-                                <input type="text" placeholder="¿Qué estás buscando?">
+                                <input type="text" placeholder="¿Qué estás buscando?" name="evento" <?php if(isset($_POST['evento'])){ echo 'value="' . $_POST['evento'] . '"'; } ?>>
                             </div> <!-- end .form-group -->
                         </div> <!-- end .col-sm-4 -->
                         <div class="col-sm-4">
                             <div class="form-group">
-                                <input type="text" placeholder="¿Donde?">
+                                <input type="text" placeholder="¿Donde?" name="lugar" <?php if(isset($_POST['lugar'])){ echo 'value="' . $_POST['lugar'] . '"'; } ?>>
                             </div> <!-- end .form-group -->
                         </div> <!-- end .col-sm-4 -->
                         <div class="col-sm-4">
                             <div class="form-group">
-                                <select class="selectpicker" data-live-search="true">
-                                    <option>Todas las Categorias</option>
+                                <select class="selectpicker" data-live-search="true" name="categoria">
+                                    <option value="-1" <?php if($_POST['categoria'] == -1){ echo 'selected'; } ?>>Todas las Categorias</option>
                                     <?php
                                     for($i = 0; $i < $categoria_tamanio; $i++){
-                                        ?><option><?= $categoria[$i]->nombre ?></option> <?php
+                                        ?><option value="<?= $categoria[$i]->nombre ?>" <?php if($_POST['categoria'] == $categoria[$i]->nombre){ echo 'selected'; } ?>><?= $categoria[$i]->nombre ?></option> <?php
                                     }
                                     ?>
                                 </select>
                             </div> <!-- end .form-group -->
                         </div> <!-- end .col-sm-4 -->
                     </div> <!-- end .row -->
+                    <div class="directory-tags"><center>
+                            <button type="submit" class="tag">Buscar</a></button></center>
+                    </div>
                 </form>
             </div> <!-- end .directory-filters -->
+            <?php
+            if($evento_page->totalPages > 1){
+            ?>
             <div class="directory-tags"><center>
                 <div class="tag"><a href="<?= $this->backPage() ?>"><i class="pe-7s-angle-left"></i>Anterior</a></div>
                     <div class="tag"><a href="<?= $this->nextPage($evento_page) ?>">Siguiente<i class="pe-7s-angle-right"></i></a></div></center>
             </div> <!-- end .directory-tags -->
+            <?php } ?>
             <div class="directory-list-info">
                 <p></p>
                 <p class="results"><?= $evento_page->totalElements ?> Resultados - Página (<?= $evento_page->number+1 ?>/<?= $evento_page->totalPages ?>)</p>

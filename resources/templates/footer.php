@@ -106,5 +106,7 @@
 <!-- Scripts.js -->
 <script src="js/scripts.js"></script>
 
+<script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+
 </body>
 </html>

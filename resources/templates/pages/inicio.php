@@ -19,10 +19,11 @@
                     <div class="col-sm-4">
                         <div class="form-group">
                             <select class="selectpicker" data-live-search="true" name="categoria">
-                                <option>Todas las Categorias</option>
+                                <option value="-1">Todas las Categorias</option>
                                 <?php
                                 for($i = 0; $i < $categoria_tamanio; $i++){
-                                    ?><option><?= $categoria[$i]->nombre ?></option> <?php
+                                    $url = explode("/",$categoria[$i]->_links->self->href);
+                                    ?><option value="<?= $categoria[$i]->nombre ?>"><?= $categoria[$i]->nombre ?></option> <?php
                                 }
                                 ?>
                             </select>

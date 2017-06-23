@@ -20,9 +20,79 @@ Class EventoService{
 
     }
 
+
+    private function capturaWebCategoria(){
+        ob_start();
+//        $data = $this->getEventoUno($this->params->getId());
+//        if($data->getDiePage()){
+//            $msg = $data->getStatus();
+//            error_reporting(0);
+//            require_once (ROOT . '/resources/templates/pages/404.php');
+//        }else {
+//            $data = $data->getContent();
+//            $this->cache = $data;
+            require_once(ROOT . '/resources/templates/pages/categoria_admin.php');
+//        }
+        return ob_get_clean();
+    }
+
+    public function ConstructorWebCategoria(){
+        return $this->capturaWebCategoria();
+    }
+
+    private function capturaWebGestion(){
+        ob_start();
+//        $data = $this->getEventoUno($this->params->getId());
+//        if($data->getDiePage()){
+//            $msg = $data->getStatus();
+//            error_reporting(0);
+//            require_once (ROOT . '/resources/templates/pages/404.php');
+//        }else {
+//            $data = $data->getContent();
+//            $this->cache = $data;
+        require_once(ROOT . '/resources/templates/pages/evento_admin.php');
+//        }
+        return ob_get_clean();
+    }
+
+    public function ConstructorWebGestion(){
+        return $this->capturaWebGestion();
+    }
+
+    public function capturaScriptGestion(){
+        ob_start();
+//        $evento = $this->cache->getContent()->_embedded->eventos;
+//        $evento_page = $this->cache->getContent()->page; //totalElements
+        require_once(ROOT . '/resources/templates/scripts/evento_admin.php');
+        return ob_get_clean();
+    }
+
+    public function capturaScriptCategoria(){
+        ob_start();
+//        $evento = $this->cache->getContent()->_embedded->eventos;
+//        $evento_page = $this->cache->getContent()->page; //totalElements
+        require_once(ROOT . '/resources/templates/scripts/categoria_admin.php');
+        return ob_get_clean();
+    }
+
+
+
     private function getEvento(){
         $instrucciones = new GlobalParams();
-        $instrucciones->setUrl(SERVICE . '/eventos');
+        if(isset($_POST['evento'])||isset($_POST['lugar'])||isset($_POST['categoria'])) {
+            $filtro = 'nombreODireccion';
+            $custom =
+                'direccion=' . urlencode($_POST['lugar']) .
+                '&nombre=' . urlencode($_POST['evento']);
+            if($_POST['categoria'] != -1) {
+                $filtro = 'filterBy';
+                $custom .= '&categoria=' . urldecode($_POST['categoria']);
+            }
+            $instrucciones->setUrl(SERVICE . '/eventos/search/' . $filtro);
+            $instrucciones->setCustom($custom);
+        }else{
+            $instrucciones->setUrl(SERVICE . '/eventos');
+        }
         $instrucciones->setSize("20");
 
         if($this->params->getList() > 0){

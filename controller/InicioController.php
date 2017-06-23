@@ -22,10 +22,20 @@ class InicioController{
 
     public function printWeb(){
         $content = '';
-        $content .= $this->params->callHeader();
-        $content .= $this->params->callMenu();
-        $content .= $this->service->ConstructorWeb();
-        $content .= $this->params->callFooter();
+        switch($this->basic->getSubpage()) {
+            case 'modo_de_uso':
+                $content .= $this->params->callHeader();
+                $content .= $this->params->callMenu();
+                $content .= $this->service->ConstructorWebMDU();
+                $content .= $this->params->callFooter();
+                break;
+            default:
+                $content .= $this->params->callHeader();
+                $content .= $this->params->callMenu();
+                $content .= $this->service->ConstructorWeb();
+                $content .= $this->params->callFooter();
+                break;
+        }
         return $content;
     }
 

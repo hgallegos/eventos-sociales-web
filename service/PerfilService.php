@@ -28,38 +28,25 @@ Class PerfilService{
 
     }
 
-    private function loginJson(){
-        $data = null;
-        $data = array(
-            'usuario' => 'matgaston',
-            'nombre' => 'Matías Gastón Venegas Ibáñez',
-            'correo' => 'matiasgaston.vi@gmail.com',
-            'password' => '123abc',
-            'nivel' => 'USUARIO'
-        );
-        return $data;
-    }
-
-    public function loginSession(){
-        $data = $this->loginJson();
-        if($data != null){
-            $this->params->setUsername($data['usuario']);
-            $this->params->setName($data['nombre']);
-            $this->params->setMail($data['correo']);
-            $this->params->setPassword($data['password']);
-            $this->params->setNivel($data['nivel']);
-            $this->params->setIsLogged(true);
-            $this->params->goHome();
-        }else{
-            //Error
-            return 'error con la el inicio de usuario';
-        }
-
-    }
-
     private function capturaWeb(){
         ob_start();
         require_once (ROOT . '/resources/templates/pages/perfil.php');
+        return ob_get_clean();
+    }
+
+    private function capturaWebGestion(){
+        ob_start();
+        require_once(ROOT . '/resources/templates/pages/usuario_admin.php');
+        return ob_get_clean();
+    }
+
+    public function ConstructorWebGestion(){
+        return $this->capturaWebGestion();
+    }
+
+    public function capturaScriptGestion(){
+        ob_start();
+        require_once(ROOT . '/resources/templates/scripts/usuario_admin.php');
         return ob_get_clean();
     }
 }

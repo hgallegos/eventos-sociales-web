@@ -60,5 +60,15 @@ Class InicioService{
         return ob_get_clean();
     }
 
+    private function capturaWebMDU(){
+        ob_start();
+        require_once(ROOT . '/resources/templates/pages/mododeuso.php');
+        return ob_get_clean();
+    }
+
+    public function ConstructorWebMDU(){
+        return $this->capturaWebMDU();
+    }
+
 }
 ?>

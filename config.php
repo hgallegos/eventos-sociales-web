@@ -7,7 +7,7 @@
  */
 //$WINDOWSMODE = true;
 
-define('SERVICE', 'http://192.95.15.158:9090');
+define('SERVICE', 'http://service.explorecity.site:9090');
 
 if(file_exists ('/var/zpanel') && !isset($WINDOWSMODE)){
     define('ROOT','/var/zpanel/hostdata/panel/public_html');

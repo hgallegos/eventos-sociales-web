@@ -12,6 +12,8 @@ class GlobalParams{
     private $sort;
     private $id;
     private $object;
+    private $custom;
+    private $data;
 
     private $procesing;
 
@@ -37,11 +39,53 @@ class GlobalParams{
                 $this->procesing .= "sort=" . $this->sort;
             }
         }
+        if($this->custom != null){
+            if($this->procesing != ""){
+                $this->procesing .= "&" . $this->custom;
+            }else{
+                $this->procesing .= $this->custom;
+            }
+        }
         if($this->procesing != ""){
             $this->procesing = "?" . $this->procesing;
         }
 
     }
+
+    /**
+     * @return mixed
+     */
+    public function getData()
+    {
+        return $this->data;
+    }
+
+    /**
+     * @param mixed $data
+     */
+    public function setData($data)
+    {
+        $this->data = $data;
+    }
+
+    /**
+     * @return mixed
+     */
+
+    public function getCustom()
+    {
+        return $this->custom;
+    }
+
+    /**
+     * @param mixed $custom
+     */
+    public function setCustom($custom)
+    {
+        $this->custom = $custom;
+    }
+
+
 
     /**
      * @return mixed
