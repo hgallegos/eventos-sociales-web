@@ -39,7 +39,7 @@
             <div class="text-center">
                 <p>¿No tienes cuenta? <a href="" class="signup-open">¡Crear una ahora!</a></p>
                 <div class="social">
-                    <p>Iniciar sesion con redes sociales</p>
+                    <p>Iniciar sesión con redes sociales</p>
                     <a href=""><img src="images/facebook.png" alt="facebook"></a>
                     <a href=""><img src="images/twitter.png" alt="twitter"></a>
                     <a href=""><img src="images/google-plus.png" alt="google plus"></a>

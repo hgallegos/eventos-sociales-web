@@ -7,7 +7,7 @@
                 <div class="row">
                     <div class="col-sm-4">
                         <div class="form-group">
-                            <input type="text" placeholder="¿Qué estás buscando?" name="evento">
+                            <input type="text" placeholder="¿Nombre del Evento?" name="evento">
                         </div> <!-- end .form-group -->
                     </div> <!-- end .col-sm-4 -->
                     <div class="col-sm-4">
@@ -19,7 +19,7 @@
                     <div class="col-sm-4">
                         <div class="form-group">
                             <select class="selectpicker" data-live-search="true" name="categoria">
-                                <option value="-1">Todas las Categorias</option>
+                                <option value="-1">¿Qué estás buscando?</option>
                                 <?php
                                 for($i = 0; $i < $categoria_tamanio; $i++){
                                     $url = explode("/",$categoria[$i]->_links->self->href);
