@@ -35,6 +35,16 @@ Class InicioService{
 
     }
 
+    private function getCategoriaIMG($id){
+        $arr = json_decode(CATEGORIA);
+        foreach ($arr as $key => $value){
+            if($key == $id){
+                return $value;
+            }
+        }
+        return $arr->DEFAULT;
+    }
+
     private function capturaWeb(){
         ob_start();
         $categoria_array = $this->getCategoria();
@@ -48,6 +58,16 @@ Class InicioService{
             require_once(ROOT . '/resources/templates/pages/inicio.php');
         }
         return ob_get_clean();
+    }
+
+    private function capturaWebMDU(){
+        ob_start();
+        require_once(ROOT . '/resources/templates/pages/mododeuso.php');
+        return ob_get_clean();
+    }
+
+    public function ConstructorWebMDU(){
+        return $this->capturaWebMDU();
     }
 
 }

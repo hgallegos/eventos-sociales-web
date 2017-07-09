@@ -16,6 +16,10 @@ class UrlParams{
     private $mail;
     private $password;
     private $nivel;
+    private $list;
+    private $id;
+    private $amode;
+    private $subpage;
 
     public function __construct(){
         $this->isLogged = false;
@@ -28,6 +32,49 @@ class UrlParams{
             $this->isLogged = true;
         }
     }
+
+    public function isAdmin(){
+        if($this->nivel == 'ADMINISTRADOR'){
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSubpage()
+    {
+        return $this->subpage;
+    }
+
+    /**
+     * @param mixed $subpage
+     */
+    public function setSubpage($subpage)
+    {
+        $this->subpage = $subpage;
+    }
+
+
+
+
+    /**
+     * @return mixed
+     */
+    public function getAmode()
+    {
+        return $this->amode;
+    }
+
+    /**
+     * @param mixed $amode
+     */
+    public function setAmode($amode)
+    {
+        $this->amode = $amode;
+    }
+
 
     /**
      * @return mixed
@@ -44,6 +91,42 @@ class UrlParams{
     {
         $this->function = $function;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param mixed $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+
+
+    /**
+     * @return mixed
+     */
+    public function getList()
+    {
+        return $this->list;
+    }
+
+    /**
+     * @param mixed $list
+     */
+    public function setList($list)
+    {
+        $this->list = $list;
+    }
+
+
 
 
 
@@ -188,13 +271,11 @@ class UrlParams{
     public function requireLogin(){
         if(!$this->isLogged){
             header("location:index.php");
-            die;
         }
     }
 
     public function goHome(){
         header("location:index.php");
-        die;
     }
 
 
