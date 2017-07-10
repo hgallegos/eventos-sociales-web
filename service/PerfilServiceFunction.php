@@ -25,6 +25,7 @@ Class PerfilServiceFunction
     private function loginJson(){
         $data = null;
         $data = array(
+            'user_id' => '103',
             'usuario' => 'matgaston',
             'nombre' => 'Matías Gastón Venegas Ibáñez',
             'correo' => 'matiasgaston.vi@gmail.com',
@@ -37,6 +38,7 @@ Class PerfilServiceFunction
     public function loginSession(){
         $data = $this->loginJson();
         if($data != null){
+            $this->params->setUserId($data['user_id']);
             $this->params->setUsername($data['usuario']);
             $this->params->setName($data['nombre']);
             $this->params->setMail($data['correo']);

@@ -31,6 +31,11 @@ class Controller{
                 $this->controller = new PerfilController($this);
                 break;
 
+            case 'foto':
+                require_once (ROOT . '/controller/FotoController.php');
+                $this->controller = new FotoController($this);
+                break;
+
             case 'inicio':
             default:
                 require_once (ROOT . '/controller/InicioController.php');

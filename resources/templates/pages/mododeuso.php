@@ -23,24 +23,21 @@
                     <div class="col-sm-4">
                         <div class="services">
                             <img src="images/services-icon01.png" alt="icon" class="img-responsive center-block">
-                            <h3>Escoge<br>Que Quieres Hacer</h3>
-                            <p>Seleciona una categoria relacionado a lo que quieras hacer.</p>
+                            <h3>Escoge que quieres hacer</h3>
                             <div class="process"><i class="pe-7s-angle-right-circle"></i></div>
                         </div> <!-- end .services -->
                     </div> <!-- end .col-sm-4 -->
                     <div class="col-sm-4">
                         <div class="services">
                             <img src="images/services-icon02.png" alt="icon" class="img-responsive center-block">
-                            <h3>Encuentra<br>Lo Que Quieres</h3>
-                            <p>Busca y filtra cientos de anuncios, lee opiniones, explora fotos y encuentra el lugar perfecto.</p>
+                            <h3>Encuentra lo que quieres</h3>
                             <div class="process"><i class="pe-7s-angle-right-circle"></i></div>
                         </div> <!-- end .services -->
                     </div> <!-- end .col-sm-4 -->
                     <div class="col-sm-4">
                         <div class="services">
                             <img src="images/services-icon03.png" alt="icon" class="img-responsive center-block">
-                            <h3>Explora<br>Lugares Increibles</h3>
-                            <p>Ir y pasar un buen rato o incluso hacer una reserva directamente desde la página del evento. Todo eso, gracias a ExploreCity!</p>
+                            <h3>Explora el mapa y ve donde quieras</h3>
                         </div> <!-- end .services -->
                     </div> <!-- end .col-sm-4 -->
                 </div> <!-- end .row -->

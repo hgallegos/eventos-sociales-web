@@ -67,6 +67,7 @@ Class EventoService{
         return ob_get_clean();
     }
 
+
     public function capturaScriptCategoria(){
         ob_start();
 //        $evento = $this->cache->getContent()->_embedded->eventos;
@@ -127,6 +128,10 @@ Class EventoService{
 
     }
 
+    public function ConstructorWebNuevo(){
+        return $this->capturaWebEventoNuevo();
+    }
+
     public function ConstructorWebEvento(){
         return $this->capturaWebEvento();
     }
@@ -160,6 +165,31 @@ Class EventoService{
         return ob_get_clean();
     }
 
+    private function capturaWebEventoNuevo(){
+        ob_start();
+        $categoria_array = $this->getCategoria();
+        $categoria = $categoria_array->getContent()->_embedded->evento_categorias;
+        $categoria_tamanio = $categoria_array->getContent()->page->totalElements;
+        require_once(ROOT . '/resources/templates/pages/nuevo_evento.php');
+        return ob_get_clean();
+    }
+
+    private function getCategoriaICONS($id){
+        $arr = json_decode(CATEGORIA);
+        foreach ($arr as $key => $value){
+            if($key == $id){
+                return $value;
+            }
+        }
+        return $arr->DEFAULT;
+    }
+
+    private function quitaSimbolos($string){
+        $string = str_replace("'", '&#39;', $string);
+        $string = str_replace('"', '&#34;', $string);
+        return $string;
+    }
+
 
     private function capturaWeb(){
         //error_reporting(E_ERROR | E_WARNING | E_PARSE);
@@ -181,6 +211,12 @@ Class EventoService{
         }else {
             require_once(ROOT . '/resources/templates/pages/evento_lista.php');
         }
+        return ob_get_clean();
+    }
+
+    public function capturaScriptNuevo(){
+        ob_start();
+        require_once(ROOT . '/resources/templates/scripts/nuevo_evento.php');
         return ob_get_clean();
     }
 

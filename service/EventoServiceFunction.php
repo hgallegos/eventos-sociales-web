@@ -6,6 +6,7 @@
  * Time: 20:28
  */
 require_once (ROOT . '/utilidades/GetData.php');
+require_once (ROOT . '/service/FotoService.php');
 Class EventoServiceFunction
 {
 
@@ -20,6 +21,65 @@ Class EventoServiceFunction
             $this->params = new UrlParams();
         }
 
+    }
+
+
+
+    public function creaEvento(){
+//        $instrucciones = new GlobalParams();
+//        $instrucciones->setUrl(SERVICE . '/eventos');
+//
+//        $instrucciones->setData($_POST['data']);
+//        $data = createData($instrucciones);
+//        if(!$data->getDiePage()){
+//            return 'OK';
+//        }
+//        return 'ERROR';
+        if(!isset($_POST['titulo'])) {
+            return 'No se han recibido parametros.';
+        }
+        $mysql = $this->makeSQL();
+        if(!$smtp = $mysql->prepare('INSERT INTO evento (User_id,Nombre,Descripcion,Fecha_Registro,Fecha_Inicio,Fecha_fin,Visibilidad,P_Nombre,P_Direccion,P_Lat,P_Lng,P_Tipo) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)')){
+            return 'Error al crear el evento.';
+        }
+        $hoy = date("Y-m-d H:i:s");
+        $user_id = $this->params->getUserId();
+        $tipo = "PUBLICO";
+        $ptipo = "from AppWeb";
+        $smtp->bind_param('ssssssssssss',$user_id,$_POST['titulo'],$_POST['descripcion'],$hoy,$_POST['fechaInicio'],$_POST['fechaFin'],$tipo,$_POST['lugar'],$_POST['direccion'],$_POST['pLat'],$_POST['pLng'],$ptipo);
+        $smtp->execute();
+        echo $smtp->error;
+        $id = $mysql->query("SELECT LAST_INSERT_ID() AS id");
+        $id = $id->fetch_object();
+
+        $values = '';
+        for($i = 0; $i < sizeof($_POST['categoria']); $i++){
+            if($i == 0){
+               $values = '(' . $id->id . ',' .  $_POST['categoria'][$i] . ')';
+            }else{
+                $values .= ',(' . $id->id . ',' .  $_POST['categoria'][$i] . ')';
+            }
+        }
+        if($values != ''){
+            $mysql->query('INSERT INTO asigna_categoria (Id_Evento,Id_Categoria) VALUES ' . $values);
+            echo $mysql->error;
+        }
+
+
+        $fotoS = new FotoService($this->params);
+        $status = ' Fotos: ';
+
+        for($i = 0; $i < sizeof($_FILES['fotos']['name']); $i++) {
+            if($_FILES['fotos']['name'][$i] != ''){
+                $fotoEnvia['name'] = $_FILES['fotos']['name'][$i];
+                $fotoEnvia['tmp_name'] = $_FILES['fotos']['tmp_name'][$i];
+                $fotoEnvia['type'] = $_FILES['fotos']['type'][$i];
+                $status .= '<br /> ' . $fotoS->creaFoto($id->id,'Evento Foto','Foto del evento',$fotoEnvia);
+            }
+        }
+        return '<script type="application/javascript">
+    location.href = "index.php?page=evento&id=' . $id->id . '";
+</script>';
     }
 
     public function eliminaEvento($id){
@@ -128,6 +188,15 @@ Class EventoServiceFunction
             array_push($print,$data);
         }
         return $print;
+    }
+
+    private function makeSQL(){
+        if(!$mysql = new mysqli(DBHOST, DBUSER, DBPASS, DBNAME)){
+            http_response_code(406);
+            die;
+        }
+        mysqli_query($mysql, "SET NAMES 'utf8'");
+        return $mysql;
     }
 
     private function getCategorias(){

@@ -15,7 +15,7 @@
         if ($('.map').length) {
             var myLatLng = new google.maps.LatLng(x,y);
             var mapOptions = {
-                zoom: 10,
+                zoom: 12,
                 center: myLatLng,
                 scrollwheel: true,
                 zoomControl: true,
@@ -38,17 +38,23 @@
             draggable: false,
             flat: true,
             content: '<div class="marker-wrapper" id="marker<?= $i ?>">' +
-            '<div class="marker"><div class="hover"></div><div class="inner"><img src="images/directory-category-drink.png" alt="icon"></div></div>' +
+                <?php if(sizeof($evento[$i]->asignaCategorias) > 0){
+                $img = explode("/",$evento[$i]->asignaCategorias[0]->_links->categoria->href);
+                    ?>
+            '<div class="marker"><div class="hover"></div><div class="inner"><img src="images/<?= $this->getCategoriaICONS($img[4]) ?>" alt="icon"></div></div>' +
+                <?php }else{ ?>
+            '<div class="marker"><div class="hover"></div><div class="inner"><img src="images/<?= $this->getCategoriaICONS($img[696969]) ?>" alt="icon"></div></div>' +
+                <?php } ?>
             '<div class="directory-item">' +
             <?php if(sizeof($evento[$i]->listaFotos) > 0){ ?>
-            '<img src="<?= $evento[$i]->listaFotos[0]->url ?>"  alt="<?= $evento[$i]->listaFotos[0]->titulo ?>" class="img-responsive">' +
+            '<img src="<?= $evento[$i]->listaFotos[0]->url ?>"  alt="<?= $this->quitaSimbolos($evento[$i]->listaFotos[0]->titulo) ?>" class="img-responsive">' +
             <?php }else{ ?>
             '<img src="images/directory-slider01.jpg" alt="bg" class="img-responsive">' +
             <?php } ?>
             '<div class="overlay"></div>' +
             '<div class="content">' +
-            '<h3><a href=""><?= $evento[$i]->nombre ?></a></h3>' +
-            '<div class="location"><img src="images/directory-location.png" alt="location"><?= $evento[$i]->pDireccion ?></div>' +
+            '<h3><a href=""><?= $this->quitaSimbolos($evento[$i]->nombre) ?></a></h3>' +
+            '<div class="location"><img src="images/directory-location.png" alt="location"><?= $this->quitaSimbolos($evento[$i]->pDireccion) ?></div>' +
             '</div> <!-- end .content -->' +
             '</div> <!-- end .directory-item -->' +
             '</div>'

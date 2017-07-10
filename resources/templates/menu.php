@@ -5,10 +5,7 @@ $params = new UrlParams();
 <header class="header clearfix">
     <div class="left">
         <div class="logo"><a href="index.php"><img src="images/logo.png" alt="ExploreCity" class="img-responsive"></a></div> <!-- end .logo -->
-        <form class="header-search">
-            <input type="text" placeholder="I’m searching for ...">
-            <button type="submit"><i class="pe-7s-search"></i></button>
-        </form>
+
     </div> <!-- end .left -->
     <div class="navigation clearfix">
         <nav class="main-nav">
@@ -17,9 +14,14 @@ $params = new UrlParams();
                     <a href="index.php">Explorar</a>
                 </li>
                 <?php if($params->getIsLogged()){ ?>
-                <li class="menu-item-has-children">
-                    <a href="index.php?page=perfil">Mi Perfil</a>
-                </li>
+                    <li class="menu-item-has-children">
+                        <a href="index.php?page=perfil">Mi Perfil</a>
+                    </li>
+                <?php } ?>
+                <?php if($params->getIsLogged()){ ?>
+                    <li class="menu-item-has-children">
+                        <a href="index.php?page=evento&subpage=nuevo">Ingresar Evento</a>
+                    </li>
                 <?php } ?>
                 <li class="menu-item-has-children">
                     <a href="index.php?subpage=modo_de_uso">Modo de uso</a>

@@ -46,6 +46,13 @@ class EventoController{
             $content .= $this->service->ConstructorWebCategoria();
             $content .= $this->params->callFooter(false);
             $content .= $this->service->capturaScriptCategoria();
+        }elseif($this->basic->getSubpage() == 'nuevo') {
+            $this->params->params->requireLogin();
+            $content .= $this->params->callHeader();
+            $content .= $this->params->callMenu();
+            $content .= $this->service->ConstructorWebNuevo();
+            $content .= $this->params->callFooter(false);
+            $content .= $this->service->capturaScriptNuevo();
         }else{
             $content .= $this->params->callHeader();
             $content .= $this->params->callMenu();
@@ -58,6 +65,9 @@ class EventoController{
 
     public function functionMode(){
         switch ($this->basic->getFunction()){
+            case 'ws_crea_evento':
+                return $this->service->creaEvento();
+                break;
             case 'ws_eventos':
                 return $this->service->capturaEventos();
                 break;

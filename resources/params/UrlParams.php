@@ -11,6 +11,7 @@ class UrlParams{
     private $function;
     private $fMode;
     private $isLogged;
+    private $user_id;
     private $username;
     private $name;
     private $mail;
@@ -24,6 +25,7 @@ class UrlParams{
     public function __construct(){
         $this->isLogged = false;
         if(isset($_SESSION['Login'])){
+            $this->user_id = $_SESSION['Persona']->user_id;
             $this->username = $_SESSION['Persona']->username;
             $this->name = $_SESSION['Persona']->name;
             $this->mail = $_SESSION['Persona']->mail;
@@ -188,6 +190,25 @@ class UrlParams{
     {
         return $this->username;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getUserId()
+    {
+        return $this->user_id;
+    }
+
+    /**
+     * @param mixed $user_id
+     */
+    public function setUserId($user_id)
+    {
+        $_SESSION['Persona']->user_id = $user_id;
+        $this->user_id = $user_id;
+    }
+
+
 
     /**
      * @param mixed $username

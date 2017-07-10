@@ -12,7 +12,7 @@
     var map;
     function initialize_map() {
         if ($('.single-map').length) {
-            var myLatLng = new google.maps.LatLng(<?= $data->pLat ?>,<?= $data->pLng ?>);
+            var myLatLng = new google.maps.LatLng(-33.462399,-70.608101);
             var mapOptions = {
                 zoom: 17,
                 center: myLatLng,
@@ -26,7 +26,7 @@
             var marker = new google.maps.Marker({
                 position: myLatLng,
                 map: map,
-                title: '<?= $this->quitaSimbolos($data->nombre) ?>',
+                title: 'Test',
                 icon: './images/location.png'
             });
         } else {

@@ -70,4 +70,28 @@ function updateData($params){
     }
     return $result;
 }
+
+function createData($params){
+    if(false) {
+        $params = new GlobalParams(); //Debug PHPStorm
+    }
+    $result = new internalStatus();
+    $url = $params->getUrl("All");
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL,$url);
+    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $params->getData());
+    $resultado = curl_exec($ch);
+    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
+    $result->setContent($httpCode);
+    if($httpCode == 201) {
+        $result->setStatus("Datos del servicio obtenidos correctamente.");
+        $result->setDiePage(false);
+    }else{
+        $result->setStatus("No se puede obtener datos desde el servicio");
+        $result->setDiePage(true);
+    }
+    return $result;
+}
 ?>

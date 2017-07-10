@@ -74,7 +74,14 @@
                             <div class="location" onclick="reload(<?= $evento[$i]->pLat ?>,<?= $evento[$i]->pLng ?>)"><img src="images/directory-location.png" alt="location"><?= $evento[$i]->pDireccion ?></div>
                         </div> <!-- end .content -->
                         <div class="category">
-                            <a href=""><img src="images/directory-category-food.png" alt="food"></a>
+                            <?php
+                            for($j = 0; $j < sizeof($evento[$i]->asignaCategorias); $j++){
+                                $img = explode("/",$evento[$i]->asignaCategorias[$j]->_links->categoria->href);
+                                ?>
+                                <img src="images/<?= $this->getCategoriaICONS($img[4]) ?>" alt="food">
+                                <?php
+                            }
+                            ?>
                         </div> <!-- end .category -->
                     </div> <!-- end .directory-item -->
                 </div> <!-- end .col-sm-6 -->
