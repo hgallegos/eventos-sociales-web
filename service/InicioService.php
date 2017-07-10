@@ -66,6 +66,12 @@ Class InicioService{
         return ob_get_clean();
     }
 
+    public function ConstructorWebContacto(){
+        ob_start();
+        require_once(ROOT . '/resources/templates/pages/contacto.php');
+        return ob_get_clean();
+    }
+
     public function ConstructorWebMDU(){
         return $this->capturaWebMDU();
     }

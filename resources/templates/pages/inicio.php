@@ -35,7 +35,7 @@
             <div class="highlight-slider-wrapper">
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2">
-                        <p class="lead">O navega en nuestras categorias</p>
+                        <p class="lead">O navega en nuestras categorías</p>
                         <div class="highlight-slider">
                             <?php
                             for($i = 0; $i < $categoria_tamanio; $i++){

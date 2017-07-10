@@ -20,12 +20,13 @@
 
 <div class="login-wrapper">
     <div class="login">
-        <form method="POST" action="index.php?page=perfil&fMode=true&function=login">
+        <form>
+            <div class="form-group" id="login_status"></div>
             <div class="form-group">
-                <input type="text" placeholder="Usuario o Correo Electrónico *" name="username" required>
+                <input type="text" placeholder="Usuario o Correo Electrónico *" id="login_username" required>
             </div> <!-- end .form-group -->
             <div class="form-group">
-                <input type="password" placeholder="Contraseña *" name="password" required>
+                <input type="password" placeholder="Contraseña *" id="login_password" required>
             </div> <!-- end .form-group -->
             <div class="clearfix">
                 <div class="checkbox">
@@ -35,13 +36,12 @@
                 </div>
                 <a href="" class="lost-password">¿Olvidó la Contraseña?</a>
             </div> <!-- end .clearfix -->
-            <div class="button-wrapper"><button type="submit" class="button">Ingresar</button></div>
+            <div class="button-wrapper"><button type="button" class="button" onclick="Login()">Ingresar</button></div>
             <div class="text-center">
                 <p>¿No tienes cuenta? <a href="" class="signup-open">¡Crear una ahora!</a></p>
                 <div class="social">
                     <p>Iniciar sesión con redes sociales</p>
                     <a href=""><img src="images/facebook.png" alt="facebook"></a>
-                    <a href=""><img src="images/twitter.png" alt="twitter"></a>
                     <a href=""><img src="images/google-plus.png" alt="google plus"></a>
                 </div> <!-- end .social -->
             </div>
@@ -52,28 +52,31 @@
 <div class="signup-wrapper">
     <div class="signup">
         <form>
+            <div class="form-group" id="crear_status"></div>
             <!--<div class="form-group">
                 <input type="text" placeholder="Nombre de Usuario *" name="username" required>
             </div> <!-- end .form-group -->
             <div class="form-group">
-                <input type="text" placeholder="Nombre y Apellido *" name="name" required>
+                <input type="text" placeholder="Nombre y Apellido *" id="crear_nombres" required>
             </div> <!-- end .form-group -->
             <div class="form-group">
-                <input type="email" placeholder="Correo Electrónico *" name="email" required>
+                <input type="email" placeholder="Correo Electrónico *" id="crear_email" required>
             </div> <!-- end .form-group -->
             <div class="form-group">
-                <input type="password" placeholder="Contraseña *" name="password" required>
+                <input type="password" placeholder="Contraseña *" id="crear_password" required>
             </div> <!-- end .form-group -->
             <div class="form-group">
-                <input type="password" placeholder="Repetir Contraseña*" name="password2" required>
+                <input type="password" placeholder="Repetir Contraseña*" id="crear_password2" required>
             </div> <!-- end .form-group -->
-            <div class="button-wrapper"><button type="submit" class="button">Registrar</button></div>
+            <div class="form-group">
+                <input type="date" placeholder="Fecha de Nacimiento" id="crear_fechaNacimiento" required>
+            </div> <!-- end .form-group -->
+            <div class="button-wrapper"><button type="button" class="button" onclick="crearUsuario()">Registrar</button></div>
             <div class="text-center">
                 <p>¿Tienes una cuenta? <a href="" class="login-open"> ¡Ingresa Ahora!</a></p>
                 <div class="social">
                     <p>Iniciar sesion con redes sociales</p>
                     <a href=""><img src="images/facebook.png" alt="facebook"></a>
-                    <a href=""><img src="images/twitter.png" alt="twitter"></a>
                     <a href=""><img src="images/google-plus.png" alt="google plus"></a>
                 </div> <!-- end .social -->
             </div>
@@ -107,6 +110,65 @@
 <script src="js/scripts.js"></script>
 
 <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+
+<script type="application/javascript">
+    var loader = '<center><img src="images/loader.gif" alt="Cargando"></center>';
+    function crearUsuario() {
+        document.getElementById('login_status').innerHTML = loader;
+        if(document.getElementById('crear_password').value != document.getElementById('crear_password2').value){
+            document.getElementById('crear_status').innerHTML = '<center><strong><font color="red">¡Contraseñas no son iguales!</font></strong></center>';
+            return false;
+        }
+        $.ajax({
+            type: 'POST',
+            url: 'index.php?page=perfil&fMode=true&function=newaccount',
+            data: {
+                'nombres': document.getElementById('crear_nombres').value,
+                'email': document.getElementById('crear_email').value,
+                'password': document.getElementById('crear_password').value,
+                'fechaNacimiento': document.getElementById('crear_fechaNacimiento').value
+            },
+            dataType: 'text',
+            success: function (data) {
+                console.log(data);
+                if(data == '1'){
+                    document.getElementById('crear_status').innerHTML = '<center><strong><font color="red">¡Debe completar todos los campos!</font></strong></center>';
+                }
+                if(data == '2'){
+                    document.getElementById('crear_status').innerHTML = '<center><strong><font color="red">¡El correo ya está registrado!</font></strong></center>';
+                }
+                if(data == 'Ok'){
+                    location.href = 'index.php';
+                }
+            },
+            error: function (data) {
+                console.log(data);
+                document.getElementById('crear_status').innerHTML = '<center><strong><font color="red">¡Problemas con el ws de cuentas!</font></strong></center>';
+            }
+        });
+    }
+    function Login() {
+        document.getElementById('crear_status').innerHTML = loader;
+        $.ajax({
+            type: 'POST',
+            url: 'index.php?page=perfil&fMode=true&function=login',
+            data: {'username': document.getElementById('login_username').value, 'password': document.getElementById('login_password').value},
+            dataType: 'text',
+            success: function (data) {
+                console.log(data);
+                if(data == 'Ok'){
+                    location.href = 'index.php';
+                }else{
+                    document.getElementById('login_status').innerHTML = '<center><strong><font color="red">¡Usuario/Correo o Contraseña Inválidos!</font></strong></center>';
+                }
+            },
+            error: function (data) {
+                console.log(data);
+                document.getElementById('login_status').innerHTML = '<center><strong><font color="red">¡Usuario/Correo o Contraseña Inválidos!</font></strong></center>';
+            }
+        });
+    }
+</script>
 
 </body>
 </html>

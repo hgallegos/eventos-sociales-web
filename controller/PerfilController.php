@@ -49,6 +49,12 @@ class PerfilController{
             case 'login':
                 return $this->service->loginSession();
                 break;
+            case 'newaccount':
+                return $this->service->createAccount();
+                break;
+            case 'modifica':
+                return $this->service->modificaPerfil();
+                break;
             case 'ws_usuario':
                 return $this->service->capturaUsuarios();
                 break;

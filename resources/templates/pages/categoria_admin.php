@@ -49,7 +49,7 @@
 
 <div class="page-title" style="background-image: url('images/eventos-fondo.jpg');">
     <div class="inner">
-        <h2>Gestión de Categorias</h2>
+        <h2>Gestión de Categorías</h2>
         <p>Zona de administración.</p>
     </div> <!-- end .inner -->
 </div> <!-- end .page-title -->
@@ -59,7 +59,7 @@
         <div class="container">
             <div class="box">
                 <div class="dashboard">
-                    <h4>Lista de Categorias</h4>
+                    <h4>Lista de Categorías</h4>
                 </div> <!-- end .dashboard -->
             <table id="categoria_table" class="display" width="100%" cellspacing="0">
                 <thead>
@@ -82,7 +82,7 @@
     <!-- Modal content -->
     <div class="modal-content">
         <span class="close">&times;</span>
-        <h2>Editar Categoria</h2>
+        <h2>Editar Categoría</h2>
         <center><div id="loaderBar"></div></center>
 
         <div class="row">

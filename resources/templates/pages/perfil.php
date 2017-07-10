@@ -1,4 +1,4 @@
-<div class="page-title" style="background-image: url('images/background06.jpg');">
+<div class="page-title" style="background-image: url('images/Pucon.jpg');">
     <div class="inner">
         <h2>Editar Perfil</h2>
         <p>Información personal y redes sociales</p>
@@ -15,6 +15,7 @@ $params = new UrlParams();
                 <form class="edit-profile-form light-inputs">
                     <h4>Información Personal</h4>
                     <div class="row">
+                        <div id="perfil_status"></div>
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <div class="input-group">
@@ -27,7 +28,7 @@ $params = new UrlParams();
                             <div class="form-group">
                                 <div class="input-group">
                                     <span class="input-group-addon">Nombre * :</span>
-                                    <input type="text" placeholder="<?= $params->getName() ?>" value="<?= $params->getName() ?>" required>
+                                    <input type="text" placeholder="<?= $params->getName() ?>" value="<?= $params->getName() ?>" id="perfil_nombre" required>
                                 </div> <!-- end .input-group -->
                             </div> <!-- end .form-group -->
                         </div> <!-- end .col-sm-6 -->
@@ -35,53 +36,67 @@ $params = new UrlParams();
                     <div class="form-group">
                         <div class="input-group">
                             <span class="input-group-addon">Email * :</span>
-                            <input type="email" placeholder="<?= $params->getMail() ?>" value="<?= $params->getMail() ?>" required>
+                            <input type="email" placeholder="<?= $params->getMail() ?>" value="<?= $params->getMail() ?>" id="perfil_email" required>
                         </div> <!-- end .input-group -->
                     </div> <!-- end .form-group -->
                     <div class="form-group">
                         <div class="input-group">
-                            <span class="input-group-addon">Contraseña Actual</span>
-                            <input type="password" placeholder="Contraseña Actual">
+                            <span class="input-group-addon">Contraseña Actual * :</span>
+                            <input type="password" placeholder="Contraseña Actual" id="perfil_contrasena_actual">
                         </div> <!-- end .input-group -->
                     </div> <!-- end .form-group -->
                     <div class="form-group">
                         <div class="input-group">
                             <span class="input-group-addon">Nueva Contraseña :</span>
-                            <input type="password" placeholder="Nueva Contraseña">
+                            <input type="password" placeholder="Nueva Contraseña" id="perfil_contrasena_nueva">
                         </div> <!-- end .input-group -->
                     </div> <!-- end .form-group -->
                     <div class="form-group">
                         <div class="input-group">
                             <span class="input-group-addon">Repetir Nueva Contraseña :</span>
-                            <input type="password" placeholder="Repetir Nueva Contraseña">
+                            <input type="password" placeholder="Repetir Nueva Contraseña" id="perfil_contrasena_nueva2">
                         </div> <!-- end .input-group -->
                     </div> <!-- end .form-group -->
-                    <div class="submit"><button type="submit" class="button">Guardar Cambios</button></div>
+                    <div class="submit"><button type="button" class="button" onclick="modificaPerfil()">Guardar Cambios</button></div>
                 </form>
-                <hr>
-                <form class="edit-profile-form light-inputs">
-                    <h4>Redes Sociales<small> Lista de todas las redes sociales vinculadas a nuestra aplicación</small></h4>
-                    <div class="form-group">
-                        <div class="input-group">
-                            <span class="input-group-addon">Facebook  (opcional) :</span>
-                            <input type="text" placeholder="testuserFacebook">
-                        </div> <!-- end .input-group -->
-                    </div> <!-- end .form-group -->
-                    <div class="form-group">
-                        <div class="input-group">
-                            <span class="input-group-addon">Twitter (opcional) :</span>
-                            <input type="text" placeholder="testuserTwitter">
-                        </div> <!-- end .input-group -->
-                    </div> <!-- end .form-group -->
-                    <div class="form-group">
-                        <div class="input-group">
-                            <span class="input-group-addon">Googleplus (opcional) :</span>
-                            <input type="text" placeholder="testuserGoogle">
-                        </div> <!-- end .input-group -->
-                    </div> <!-- end .form-group -->
-                </form>
-                <hr>
             </div> <!-- end .box -->
         </div> <!-- end .container -->
     </div> <!-- end .inner -->
 </div> <!-- end .section -->
+
+<script type="application/javascript">
+    function modificaPerfil() {
+        document.getElementById('perfil_status').innerHTML = loader;
+        if(document.getElementById('perfil_contrasena_nueva').value != document.getElementById('perfil_contrasena_nueva2').value){
+            document.getElementById('perfil_status').innerHTML = '<center><strong><font color="red">¡Contraseñas no son iguales!</font></strong></center>';
+            return false;
+        }
+        $.ajax({
+            type: 'POST',
+            url: 'index.php?page=perfil&fMode=true&function=modifica',
+            data: {
+                'nombres': document.getElementById('perfil_nombre').value,
+                'email': document.getElementById('perfil_email').value,
+                'password': document.getElementById('perfil_contrasena_actual').value,
+                'password_nueva': document.getElementById('perfil_contrasena_nueva').value
+            },
+            dataType: 'text',
+            success: function (data) {
+                console.log(data);
+                if(data == "1"){
+                    document.getElementById('perfil_status').innerHTML = '<center><strong><font color="red">¡Debe completar todos los campos obligatorios!</font></strong></center>';
+                }
+                if(data == "2"){
+                    document.getElementById('perfil_status').innerHTML = '<center><strong><font color="red">¡La contraseña actual no es correcta!</font></strong></center>';
+                }
+                if(data == "Ok"){
+                    document.getElementById('perfil_status').innerHTML = '<center><strong><font color="green">¡Datos Actualizados!</font></strong></center>';
+                }
+            },
+            error: function (data) {
+                console.log(data);
+                document.getElementById('perfil_status').innerHTML = '<center><strong><font color="red">¡La contraseña actual no es correcta!</font></strong></center>';
+            }
+        });
+    }
+</script>

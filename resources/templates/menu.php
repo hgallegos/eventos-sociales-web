@@ -10,24 +10,24 @@ $params = new UrlParams();
     <div class="navigation clearfix">
         <nav class="main-nav">
             <ul class="list-unstyled">
-                <li class="menu-item-has-children">
+                <li class="menu-item-has-children <?php if(isset($_GET['page']) && $_GET['page'] == 'evento' && !isset($_GET['subpage']) && !isset($_GET['amode'])){ echo 'active'; } ?>">
                     <a href="index.php">Explorar</a>
                 </li>
                 <?php if($params->getIsLogged()){ ?>
-                    <li class="menu-item-has-children">
+                    <li class="menu-item-has-children <?php if(isset($_GET['page']) && $_GET['page'] == 'perfil' && !isset($_GET['amode'])){ echo 'active'; } ?>">
                         <a href="index.php?page=perfil">Mi Perfil</a>
                     </li>
                 <?php } ?>
                 <?php if($params->getIsLogged()){ ?>
-                    <li class="menu-item-has-children">
+                    <li class="menu-item-has-children <?php if(isset($_GET['page']) && $_GET['page'] == 'evento' && isset($_GET['subpage']) && $_GET['subpage'] == 'nuevo'){ echo 'active'; } ?>">
                         <a href="index.php?page=evento&subpage=nuevo">Ingresar Evento</a>
                     </li>
                 <?php } ?>
-                <li class="menu-item-has-children">
+                <li class="menu-item-has-children <?php if( isset($_GET['subpage']) && $_GET['subpage'] == 'modo_de_uso'){ echo 'active'; } ?>">
                     <a href="index.php?subpage=modo_de_uso">Modo de uso</a>
                 </li>
-                <li class="menu-item-has-children">
-                    <a href="#">Contáctanos</a>
+                <li class="menu-item-has-children <?php if(isset($_GET['subpage']) && $_GET['subpage'] == 'contacto'){ echo 'active'; } ?>">
+                    <a href="index.php?subpage=contacto">Contáctanos</a>
                 </li>
             </ul>
         </nav> <!-- end .main-nav -->
@@ -54,7 +54,7 @@ $params = new UrlParams();
                 <li><a href="">Inicio Administrador</a></li>
                 <li <?php if(isset($_GET['page']) && $_GET['page'] == 'evento' && isset($_GET['amode']) && $_GET['amode'] == 'gestion'){ echo 'class="active"'; } ?>><a href="index.php?page=evento&amode=gestion">Gestionar Eventos</a></li>
                 <li <?php if(isset($_GET['page']) && $_GET['page'] == 'perfil' && isset($_GET['amode'])){ echo 'class="active"'; } ?>><a href="index.php?page=perfil&amode=gestion">Gestionar Usuarios</a></li>
-                <li <?php if(isset($_GET['page']) && $_GET['page'] == 'evento' && isset($_GET['amode']) && $_GET['amode'] == 'categoria'){ echo 'class="active"'; } ?>><a href="index.php?page=evento&amode=categoria">Gestionar Categorias</a></li>
+                <li <?php if(isset($_GET['page']) && $_GET['page'] == 'evento' && isset($_GET['amode']) && $_GET['amode'] == 'categoria'){ echo 'class="active"'; } ?>><a href="index.php?page=evento&amode=categoria">Gestionar Categorías</a></li>
             </ul>
         </nav> <!-- end .menu -->
     </div> <!-- end .container -->

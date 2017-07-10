@@ -29,6 +29,12 @@ class InicioController{
                 $content .= $this->service->ConstructorWebMDU();
                 $content .= $this->params->callFooter();
                 break;
+            case 'contacto':
+                $content .= $this->params->callHeader();
+                $content .= $this->params->callMenu();
+                $content .= $this->service->ConstructorWebContacto();
+                $content .= $this->params->callFooter();
+                break;
             default:
                 $content .= $this->params->callHeader();
                 $content .= $this->params->callMenu();
