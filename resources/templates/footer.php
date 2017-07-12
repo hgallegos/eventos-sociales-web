@@ -41,8 +41,8 @@
                 <p>¿No tienes cuenta? <a href="" class="signup-open">¡Crear una ahora!</a></p>
                 <div class="social">
                     <p>Iniciar sesión con redes sociales</p>
-                    <a href=""><img src="images/facebook.png" alt="facebook"></a>
-                    <a href=""><img src="images/google-plus.png" alt="google plus"></a>
+                    <p><a id="custom_signin_button"><img src="images/google-plus.png" alt="google plus"></a>
+                        <a onclick="fbLogin()"><img src="images/facebook.png" alt="facebook"></a></p>
                 </div> <!-- end .social -->
             </div>
         </form>
@@ -73,6 +73,7 @@
             </div> <!-- end .form-group -->
             <div class="button-wrapper"><button type="button" class="button" onclick="crearUsuario()">Registrar</button></div>
             <div class="text-center">
+                <div class="g-signin2" data-onsuccess="onSignIn" data-onfailure="onSignInFailure()"></div>
                 <p>¿Tienes una cuenta? <a href="" class="login-open"> ¡Ingresa Ahora!</a></p>
                 <div class="social">
                     <p>Iniciar sesion con redes sociales</p>
@@ -83,13 +84,13 @@
         </form>
     </div> <!-- end .signup -->
 </div> <!-- end .signup-wrapper -->
-
 <!-- jQuery -->
 <script src="js/jquery-3.1.0.min.js"></script>
 <!-- Bootstrap -->
 <script src="js/bootstrap.min.js"></script>
 <!-- google maps -->
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAy-PboZ3O_A25CcJ9eoiSrKokTnWyAmt8"></script>
+
 <!-- rich marker -->
 <script src="js/richmarker.js"></script>
 <!-- Owl Carousel -->
@@ -113,6 +114,7 @@
 
 <script type="application/javascript">
     var loader = '<center><img src="images/loader.gif" alt="Cargando"></center>';
+
     function crearUsuario() {
         document.getElementById('login_status').innerHTML = loader;
         if(document.getElementById('crear_password').value != document.getElementById('crear_password2').value){
@@ -168,7 +170,88 @@
             }
         });
     }
+    function socialNetworkLogin(usuario,nombre,email,socialnetwork) {
+        $.ajax({
+            type: 'POST',
+            url: 'index.php?page=perfil&fMode=true&function=login_redes_sociales',
+            data: {
+                'usuario':usuario,
+                'nombre':nombre,
+                'email':email,
+                'socialnetwork':socialnetwork
+            },
+            dataType: 'text',
+            success: function (data) {
+                console.log(data);
+                if(data == 'Ok'){
+                    if(socialnetwork == 'Google'){
+                        var auth2 = gapi.auth2.getAuthInstance();
+                        auth2.signOut().then(function () {
+                            console.log('Funcionamiento correcto de google login.');
+                        });
+                    }
+                    if(socialnetwork == 'Facebook'){
+                        console.log('Funcionamiento correcto de facebook login.');
+                        logoutFB();
+                    }
+                    location.href = 'index.php';
+                }
+            },
+            error: function (data) {
+                console.log(data);
+                alert('Error al intentar iniciar sessión.');
+            }
+        });
+    }
 </script>
+<script>
+    var isLoggin = <?php if(isset($_SESSION['Login'])){ echo 'true'; }else{ echo 'false'; } ?>;
+    function onSignIn(googleUser) {
+        if(isLoggin){
+            return;
+        }
+        var profile = googleUser.getBasicProfile();
+        socialNetworkLogin(profile.getId(),profile.getName(),profile.getEmail(),'Google');
+    }
+    function onSignInFailure() {
+        // Handle sign-in errors
+        alert('El sistema de login por google ha fallado.');
+    }
+
+    function onLoad() {
+        gapi.signin2.render('custom_signin_button', {
+            'scope': 'profile email',
+            'img': 'images/google-plus.png',
+            'onsuccess': onSignIn,
+            'onfailure': onSignInFailure
+        });
+    }
+
+
+    function logoutFB() {
+        FB.logout(function(response) {
+            // user is now logged out
+        });
+    }
+    function fbLogin() {
+        FB.login(function(response) {
+            if (response.authResponse) {
+                FB.api('/me', function(response) {
+                    socialNetworkLogin(response.id,response.name,'','Facebook');
+                });
+            } else {
+                alert('No se pudo ingresar con Facebook.');
+            }
+        }, {
+            scope: 'email'
+        });
+    }
+
+
+
+
+</script>
+<script src="https://apis.google.com/js/platform.js?onload=onLoad" async defer></script>
 
 </body>
 </html>

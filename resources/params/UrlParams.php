@@ -21,6 +21,7 @@ class UrlParams{
     private $id;
     private $amode;
     private $subpage;
+    private $token;
 
     public function __construct(){
         $this->isLogged = false;
@@ -31,6 +32,11 @@ class UrlParams{
             $this->mail = $_SESSION['Persona']->mail;
             $this->password = $_SESSION['Persona']->password;
             $this->nivel = $_SESSION['Persona']->nivel;
+            if($_SESSION['Persona']->token != null) {
+                $this->token = $_SESSION['Persona']->token;
+            }else{
+                $this->token = 'WebApp';
+            }
             $this->isLogged = true;
         }
     }
@@ -207,6 +213,25 @@ class UrlParams{
         $_SESSION['Persona']->user_id = $user_id;
         $this->user_id = $user_id;
     }
+
+    /**
+     * @return mixed
+     */
+    public function getToken()
+    {
+        return $this->token;
+    }
+
+    /**
+     * @param mixed $token
+     */
+    public function setToken($token)
+    {
+        $_SESSION['Persona']->token = $token;
+        $this->token = $token;
+    }
+
+
 
 
 

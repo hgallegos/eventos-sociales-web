@@ -12,6 +12,7 @@ $params = new UrlParams();
     <div class="inner">
         <div class="container">
             <div class="box">
+                <?php if($params->getToken() == 'WebApp'){ ?>
                 <form class="edit-profile-form light-inputs">
                     <h4>Información Personal</h4>
                     <div class="row">
@@ -59,6 +60,9 @@ $params = new UrlParams();
                     </div> <!-- end .form-group -->
                     <div class="submit"><button type="button" class="button" onclick="modificaPerfil()">Guardar Cambios</button></div>
                 </form>
+                <?php }else{
+                    ?><h3>Debes ingresar a <?= $params->getToken() ?> para modificar tu perfil.</h3><?php
+                } ?>
             </div> <!-- end .box -->
         </div> <!-- end .container -->
     </div> <!-- end .inner -->

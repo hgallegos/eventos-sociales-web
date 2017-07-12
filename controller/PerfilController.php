@@ -52,6 +52,9 @@ class PerfilController{
             case 'newaccount':
                 return $this->service->createAccount();
                 break;
+            case 'login_redes_sociales':
+                return $this->service->loginWithRedes();
+                break;
             case 'modifica':
                 return $this->service->modificaPerfil();
                 break;

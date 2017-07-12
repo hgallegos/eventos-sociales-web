@@ -58,6 +58,26 @@ Class PerfilServiceFunction
         return $data;
     }
 
+    private function cargaUsuario2($db,$user){
+        $data = null;
+        $stmt = $db->prepare("SELECT * FROM usuario WHERE Usuario = ? AND Estado = 1");
+        $stmt->bind_param('s',$user);
+        $stmt->execute();
+        $resutl = $stmt->get_result();
+        while($row = $resutl->fetch_assoc()){
+            $data = array(
+                'user_id' => $row['Id'],
+                'usuario' => $row['Usuario'],
+                'nombre' => $row['Nombre'],
+                'correo' => $row['Email'],
+                'password' => '',
+                'nivel' => $row['Nivel'],
+                'token' => $row['Token']
+            );
+        }
+        return $data;
+    }
+
     public function loginSession(){
         $data = $this->loginJson();
         if($data != null){
@@ -79,10 +99,16 @@ Class PerfilServiceFunction
 
     }
 
-    private function createJson($data,$db){
-        $stmt = $db->prepare("INSERT INTO usuario (Usuario,Contrasena,Nombre,Edad,Email,Nivel) VALUES (?,?,?,?,?,?)");
-        $stmt->bind_param('ssssss',$data['usuario'],$data['password'],$data['nombre'],$data['edad'],$data['correo'],$data['nivel']);
-        $stmt->execute();
+    private function createJson($data,$db,$token = null){
+        if($token == null) {
+            $stmt = $db->prepare("INSERT INTO usuario (Usuario,Contrasena,Nombre,Edad,Email,Nivel) VALUES (?,?,?,?,?,?)");
+            $stmt->bind_param('ssssss', $data['usuario'], $data['password'], $data['nombre'], $data['edad'], $data['correo'], $data['nivel']);
+            $stmt->execute();
+        }else{
+            $stmt = $db->prepare("INSERT INTO usuario (Usuario,Contrasena,Nombre,Edad,Email,Nivel,Token) VALUES (?,?,?,?,?,?,?)");
+            $stmt->bind_param('sssssss', $data['usuario'], $data['password'], $data['nombre'], $data['edad'], $data['correo'], $data['nivel'],$token);
+            $stmt->execute();
+        }
     }
 
     private function checkParams(){
@@ -99,6 +125,54 @@ Class PerfilServiceFunction
             );
         }
         return $data;
+    }
+    private function checkLoginWithRedes(){
+        $data = null;
+        if(isset($_POST['usuario']) && isset($_POST['nombre']) && isset($_POST['socialnetwork'])
+            && $_POST['usuario'] != '' && $_POST['nombre'] != '' && $_POST['socialnetwork'] != ''){
+            $data = array(
+                'usuario' => $_POST['usuario'],
+                'nombre' => $_POST['nombre'],
+                'correo' => $_POST['email'],
+                'password' => '',
+                'edad' => '',
+                'nivel' => 'USUARIO',
+                'token' => $_POST['socialnetwork']
+            );
+        }
+        return $data;
+    }
+
+    public function loginWithRedes(){
+        $data = $this->checkLoginWithRedes();
+        if($data == null){
+            http_response_code(409);
+            return '1';
+        }
+        $db = $this->makeSQL();
+        $stmt = $db->prepare("SELECT * FROM usuario WHERE Usuario = ? AND Estado = 1");
+        $stmt->bind_param('s',$data['usuario']);
+        $stmt->execute();
+        $stmt->store_result();
+        if($stmt->num_rows == 1){
+            $data = $this->cargaUsuario2($db,$data['usuario']);
+        }else{
+            $this->createJson($data,$db,$data['token']);
+            $id = $db->query("SELECT LAST_INSERT_ID() AS id");
+            $id = $id->fetch_object();
+            $data['user_id'] = $id->id;
+        }
+        $_SESSION['Persona'] = new stdClass();
+        $this->params->setUserId($data['user_id']);
+        $this->params->setUsername($data['usuario']);
+        $this->params->setName($data['nombre']);
+        $this->params->setMail($data['correo']);
+        $this->params->setPassword($data['password']);
+        $this->params->setNivel($data['nivel']);
+        $this->params->setToken($data['token']);
+        $this->params->setIsLogged(true);
+        http_response_code(201);
+        return 'Ok';
     }
 
     private function checkParams2(){
