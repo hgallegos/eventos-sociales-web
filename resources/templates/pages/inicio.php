@@ -42,7 +42,7 @@
                                 $img = explode("/",$categoria[$i]->_links->self->href);
                                 ?>
                                 <div class="item">
-                                    <button class="icon" onclick="categoriaSelector('<?= $categoria[$i]->nombre ?>')">
+                                    <button class="icon" onclick="categoriaSelector('<?= $img[4] ?>')">
                                         <img src="images/<?= $this->getCategoriaIMG($img[4]) ?>" alt="food">
                                         <div class="overlay"><?= $categoria[$i]->nombre ?></div>
                                     </button> <!-- end .icon -->

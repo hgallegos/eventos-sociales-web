@@ -81,6 +81,9 @@ Class EventoService{
     private function getEvento(){
         $instrucciones = new GlobalParams();
         if(isset($_POST['evento'])||isset($_POST['lugar'])||isset($_POST['categoria'])) {
+            $_SESSION['cacheEvento'] = $_POST['evento'];
+            $_SESSION['cacheLugar'] = $_POST['lugar'];
+            $_SESSION['cacheCategoria'] = $_POST['categoria'];
             $filtro = 'nombreODireccion';
             $custom =
                 'direccion=' . urlencode($_POST['lugar']) .
@@ -88,6 +91,17 @@ Class EventoService{
             if($_POST['categoria'] != -1) {
                 $filtro = 'filterBy';
                 $custom .= '&categoria=' . urldecode($_POST['categoria']);
+            }
+            $instrucciones->setUrl(SERVICE . '/eventos/search/' . $filtro);
+            $instrucciones->setCustom($custom);
+        }elseif(isset($_SESSION['cacheEvento']) && isset($_SESSION['cacheLugar']) && isset($_SESSION['cacheCategoria'])) {
+            $filtro = 'nombreODireccion';
+            $custom =
+                'direccion=' . urlencode($_SESSION['cacheLugar']) .
+                '&nombre=' . urlencode($_SESSION['cacheEvento']);
+            if($_SESSION['cacheCategoria'] != -1) {
+                $filtro = 'filterBy';
+                $custom .= '&categoria=' . urldecode($_SESSION['cacheCategoria']);
             }
             $instrucciones->setUrl(SERVICE . '/eventos/search/' . $filtro);
             $instrucciones->setCustom($custom);
@@ -102,6 +116,37 @@ Class EventoService{
 
         $data = getData($instrucciones);
         return $data;
+    }
+
+    private function obtieneCategorias($id){
+        $db = $this->makeSQL();
+        if(!$stmt = $db->prepare("SELECT B.nombre AS nombre FROM asigna_categoria AS A JOIN evento_categoria AS B ON (A.Id_Categoria = B.Id) WHERE A.Id_Evento = ?")){
+            echo $db->error;
+            die;
+        }
+        $stmt->bind_param('s',$id);
+        $stmt->execute();
+        $resutl = $stmt->get_result();
+        $i = 0;
+        $data = '';
+        while($row = $resutl->fetch_assoc()){
+            if($i == 0){
+                $data = $row['nombre'];
+            }else{
+                $data .= ', ' . $row['nombre'];
+            }
+            $i++;
+        }
+        return $data;
+    }
+
+    private function makeSQL(){
+        if(!$mysql = new mysqli(DBHOST, DBUSER, DBPASS, DBNAME)){
+            http_response_code(406);
+            die;
+        }
+        mysqli_query($mysql, "SET NAMES 'utf8'");
+        return $mysql;
     }
 
     private function getEventoUno($id){
@@ -150,6 +195,16 @@ Class EventoService{
         return '#';
     }
 
+    private function getFotos($fotos_url){
+        $instrucciones = new GlobalParams();
+        $instrucciones->setUrl($fotos_url);
+
+        $data = getData($instrucciones);
+        $foto = $data->getContent();
+        $foto = $foto->_embedded->evento_fotos;
+        return $foto;
+    }
+
     private function capturaWebEvento(){
         ob_start();
         $data = $this->getEventoUno($this->params->getId());
@@ -159,6 +214,8 @@ Class EventoService{
             require_once (ROOT . '/resources/templates/pages/404.php');
         }else {
             $data = $data->getContent();
+            $fotos = $data->_links->eventoFotos->href;
+            $fotos = $this->getFotos($fotos);
             $this->cache = $data;
             require_once(ROOT . '/resources/templates/pages/ver_evento.php');
         }
@@ -202,7 +259,6 @@ Class EventoService{
         $this->cache = $evento_array;
         $evento = $evento_array->getContent()->_embedded->eventos;
         $evento_page = $evento_array->getContent()->page; //totalElements
-
 
         if($categoria_array->getDiePage() || $evento_array->getDiePage()){
             $msg = $categoria_array->getStatus() || $evento_array->getStatus();

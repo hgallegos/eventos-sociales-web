@@ -46,8 +46,11 @@
             '<div class="marker"><div class="hover"></div><div class="inner"><img src="images/<?= $this->getCategoriaICONS($img[696969]) ?>" alt="icon"></div></div>' +
                 <?php } ?>
             '<div class="directory-item">' +
-            <?php if(sizeof($evento[$i]->listaFotos) > 0){ ?>
-            '<img src="<?= $evento[$i]->listaFotos[0]->url ?>"  alt="<?= $this->quitaSimbolos($evento[$i]->listaFotos[0]->titulo) ?>" class="img-responsive">' +
+            <?php
+            $fotos = $evento[$i]->_links->eventoFotos->href;
+            $fotos = $this->getFotos($fotos);
+            if(sizeof($fotos) > 0){ ?>
+            '<img src="<?= $fotos[0]->url ?>"  alt="<?= $this->quitaSimbolos($fotos[0]->titulo) ?>" width="370" height="470" class="img-responsive">' +
             <?php }else{ ?>
             '<img src="images/directory-slider01.jpg" alt="bg" class="img-responsive">' +
             <?php } ?>

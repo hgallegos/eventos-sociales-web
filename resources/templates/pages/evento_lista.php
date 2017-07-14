@@ -56,11 +56,13 @@
                 }
                  for($i = 0; $i < $size; $i++){
                      $url = explode("/",$evento[$i]->_links->self->href);
+                     $fotos = $evento[$i]->_links->eventoFotos->href;
+                     $fotos = $this->getFotos($fotos);
                     ?>
                 <div class="col-sm-6">
                     <div class="directory-item">
-                        <?php if(sizeof($evento[$i]->listaFotos) > 0){ ?>
-                            <img src="<?= $evento[$i]->listaFotos[0]->url ?>" width="370" height="470" alt="<?= $evento[$i]->listaFotos[0]->titulo ?>" >
+                        <?php if(sizeof($fotos) > 0){ ?>
+                            <img src="<?= $fotos[0]->url ?>" width="370" height="470" alt="<?= $fotos[0]->titulo ?>" >
                         <?php }else{ ?>
                             <img src="images/directory-slider01.jpg" width="370" height="470" alt="bg" class="img-responsive">
                         <?php } ?>
