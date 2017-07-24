@@ -270,9 +270,9 @@ Class PerfilServiceFunction
         $eventos = $this->getUsuario()->_embedded->usuarios;
         for($i = 0; $i < sizeof($eventos); $i++){
             $url = explode("/",$eventos[$i]->_links->self->href);
-            $botones = '<a class="remove" onclick="editaUsuario(' . $url[4] . ')"><i class="pe-7s-edit"></i></a>';
-            $botones .= '<a class="remove" onclick="deleteUsuario(' . $url[4] . ')"><i class="pe-7s-close-circle"></i></a>';
-            $data = [$url[4],$eventos[$i]->usuario,$eventos[$i]->nombre,$eventos[$i]->edad,$eventos[$i]->email,$eventos[$i]->nivel,$botones];
+            $botones = '<a class="remove" onclick="editaUsuario(' . $url[4] . ')">Editar</a><br />';
+            $botones .= '<a class="remove" onclick="deleteUsuario(' . $url[4] . ')">Eliminar</a>';
+            $data = [$url[4],$eventos[$i]->usuario,$eventos[$i]->nombre,/*$eventos[$i]->edad, */$eventos[$i]->email,$eventos[$i]->nivel,$botones];
             array_push($print,$data);
         }
         return $print;
@@ -322,12 +322,21 @@ Class PerfilServiceFunction
     }
 
     public function guardarUsuario($id){
-        $instrucciones = new GlobalParams();
-        $instrucciones->setUrl(SERVICE . '/usuarios/' . $id);
-        $instrucciones->setData($_POST['data']);
-
-        $data = updateData($instrucciones);
-        return $data->getContent();
+//        $instrucciones = new GlobalParams();
+//        $instrucciones->setUrl(SERVICE . '/usuarios/' . $id);
+//        $instrucciones->setData($_POST['data']);
+//
+//        $data = updateData($instrucciones);
+//        return $data->getContent();
+        $mysql = $this->makeSQL();
+        if(!$stmt = $mysql->prepare("UPDATE usuario SET Nombre = ?,Email = ?, Nivel = ? WHERE Id = ?")){
+            die('Consulta errónea '  . $stmt->error);
+        }
+        $data = json_decode($_POST['data']);
+        $stmt->bind_param('ssss',$data->nombre,$data->email,$data->nivel, $id);
+        $stmt->execute();
+        echo 'pasa';
+        return $stmt->error;
 
     }
 

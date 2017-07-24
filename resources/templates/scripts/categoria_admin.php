@@ -78,7 +78,7 @@
     function guardaCategoria() {
         dataGlobal['nombre'] = document.getElementById('nombre').value;
         dataGlobal['descripcion'] = document.getElementById('descripcion').value;
-        guardaEventoEnWS();
+        guardaCategoriaEnWS();
     }
 
     function guardaCategoriaEnWS() {

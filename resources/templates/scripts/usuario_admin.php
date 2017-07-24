@@ -71,7 +71,7 @@
             dataGlobal = obtieneInfoEdit(id);
             document.getElementById('nombre').value = dataGlobal['nombre'];
             document.getElementById('usuario').value = dataGlobal['usuario'];
-            document.getElementById('edad').value = dataGlobal['edad'];
+//            document.getElementById('edad').value = dataGlobal['edad'];
             document.getElementById('email').value = dataGlobal['email'];
             document.getElementById('nivel').value = dataGlobal['nivel'];
             document.getElementById('loaderBar').innerHTML = '';
@@ -80,16 +80,16 @@
 
     function guardaUsuario() {
         dataGlobal['nombre'] = document.getElementById('nombre').value;
-        dataGlobal['edad'] = document.getElementById('edad').value;
+//        dataGlobal['edad'] = document.getElementById('edad').value;
         dataGlobal['email'] = document.getElementById('email').value;
         dataGlobal['nivel'] = document.getElementById('nivel').value;
-        guardaEventoEnWS();
+        guardaUsuarioEnWS();
     }
 
     function guardaUsuarioEnWS() {
         $.ajax({
             type: 'POST',
-            url: 'index.php?page=evento&fmode=true&function=ws_usuario_save&id=' + LastID,
+            url: 'index.php?page=perfil&fmode=true&function=ws_usuario_save&id=' + LastID,
             data: {'data': JSON.stringify(dataGlobal)},
             dataType: 'text',
             success: function (data) {

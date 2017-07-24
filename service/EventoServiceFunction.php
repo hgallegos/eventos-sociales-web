@@ -23,6 +23,17 @@ Class EventoServiceFunction
 
     }
 
+    private function registraActividad($mysql,$actividad){
+        if(!$smtp = $mysql->prepare('INSERT INTO actividad (User_id,Api_Id,Ip,Fecha,Tipo) VALUES (?,?,?,?,?)')){
+            return 'Error al crear el evento.';
+        }
+        $hoy = date("Y-m-d H:i:s");
+        $user_id = $this->params->getUserId();
+        $api_id = 2;
+        $smtp->bind_param('sssss',$user_id,$api_id,$_SERVER['REMOTE_ADDR'],$hoy,$actividad);
+        $smtp->execute();
+    }
+
 
 
     public function creaEvento(){
@@ -48,9 +59,9 @@ Class EventoServiceFunction
         $ptipo = "from AppWeb";
         $smtp->bind_param('ssssssssssss',$user_id,$_POST['titulo'],$_POST['descripcion'],$hoy,$_POST['fechaInicio'],$_POST['fechaFin'],$tipo,$_POST['lugar'],$_POST['direccion'],$_POST['pLat'],$_POST['pLng'],$ptipo);
         $smtp->execute();
-        echo $smtp->error;
         $id = $mysql->query("SELECT LAST_INSERT_ID() AS id");
         $id = $id->fetch_object();
+        $this->registraActividad($mysql,'crear_evento');
 
         $values = '';
         for($i = 0; $i < sizeof($_POST['categoria']); $i++){
@@ -105,22 +116,39 @@ Class EventoServiceFunction
     }
 
     public function guardarEvento($id){
-        $instrucciones = new GlobalParams();
-        $instrucciones->setUrl(SERVICE . '/eventos/' . $id);
-        $instrucciones->setData($_POST['data']);
-
-        $data = updateData($instrucciones);
-        return $data->getContent();
+//        $instrucciones = new GlobalParams();
+//        $instrucciones->setUrl(SERVICE . '/eventos/' . $id);
+//        $instrucciones->setData($_POST['data']);
+//
+//        $data = updateData($instrucciones);
+//        return $data->getContent();
+        $mysql = $this->makeSQL();
+        if(!$stmt = $mysql->prepare("UPDATE evento SET Nombre = ?,Visibilidad = ?,P_Nombre = ?,P_Direccion = ?,Fecha_Inicio = ?,Fecha_Fin = ?,Descripcion = ? WHERE Id = ?")){
+            die('Consulta errónea '  . $stmt->error);
+        }
+        $data = json_decode($_POST['data']);
+        $stmt->bind_param('ssssssss',$data->nombre,$data->visibilidad,$data->pNombre,$data->pDireccion,$data->fechaInicio,$data->fechaFin,$data->descripcion, $id);
+        $stmt->execute();
+        $this->registraActividad($mysql,'modificar_evento');
+        return $stmt->error;
 
     }
 
     public function guardarCategoria($id){
-        $instrucciones = new GlobalParams();
-        $instrucciones->setUrl(SERVICE . '/evento_categorias/' . $id);
-        $instrucciones->setData($_POST['data']);
-
-        $data = updateData($instrucciones);
-        return $data->getContent();
+//        $instrucciones = new GlobalParams();
+//        $instrucciones->setUrl(SERVICE . '/evento_categorias/' . $id);
+//        $instrucciones->setData($_POST['data']);
+//
+//        $data = updateData($instrucciones);
+//        return $data->getContent();
+        $mysql = $this->makeSQL();
+        if(!$stmt = $mysql->prepare("UPDATE evento_categoria SET Nombre = ?,Descripcion = ? WHERE Id = ?")){
+            die('Consulta errónea '  . $stmt->error);
+        }
+        $data = json_decode($_POST['data']);
+        $stmt->bind_param('sss',$data->nombre,$data->descripcion, $id);
+        $stmt->execute();
+        return $stmt->error;
 
     }
 
@@ -158,8 +186,8 @@ Class EventoServiceFunction
         $eventos = $this->getCategorias()->_embedded->evento_categorias;
         for($i = 0; $i < sizeof($eventos); $i++){
             $url = explode("/",$eventos[$i]->_links->self->href);
-            $botones = '<a class="remove" onclick="editaCategoria(' . $url[4] . ')"><i class="pe-7s-edit"></i></a>';
-            $botones .= '<a class="remove" onclick="deleteCategoria(' . $url[4] . ')"><i class="pe-7s-close-circle"></i></a>';
+            $botones = '<a class="remove" onclick="editaCategoria(' . $url[4] . ')">Editar</a><br />';
+            $botones .= '<a class="remove" onclick="deleteCategoria(' . $url[4] . ')">Eliminar</i></a>';
             $data = [$url[4],$eventos[$i]->nombre,$botones];
             array_push($print,$data);
         }
@@ -182,8 +210,8 @@ Class EventoServiceFunction
         $eventos = $this->getEvento()->_embedded->eventos;
         for($i = 0; $i < sizeof($eventos); $i++){
             $url = explode("/",$eventos[$i]->_links->self->href);
-            $botones = '<a class="remove" onclick="editaEvento(' . $url[4] . ')"><i class="pe-7s-edit"></i></a>';
-            $botones .= '<a class="remove" onclick="deleteEvento(' . $url[4] . ')"><i class="pe-7s-close-circle"></i></a>';
+            $botones = '<a class="remove" onclick="editaEvento(' . $url[4] . ')">Editar</a><br />';
+            $botones .= '<a class="remove" onclick="deleteEvento(' . $url[4] . ')">Eliminar</a>';
             $data = [$url[4],$eventos[$i]->nombre,date("Y-m-d H:i",strtotime($eventos[$i]->fechaRegistro)),$eventos[$i]->visibilidad,$eventos[$i]->pNombre,$eventos[$i]->pDireccion,$botones];
             array_push($print,$data);
         }

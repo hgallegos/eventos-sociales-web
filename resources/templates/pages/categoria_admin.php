@@ -102,7 +102,7 @@
             </div> <!-- end .col-sm-6 -->
         </div> <!-- end .row -->
         <div class="clearfix text-right">
-            <button type="button" class="button" onclick="guardaCategoriaEnWS()">Guardar</button>
+            <button type="button" class="button" onclick="guardaCategoria()">Guardar</button>
         </div> <!-- end .clearfix -->
     </div>
 </div>

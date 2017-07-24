@@ -67,7 +67,7 @@
                     <th>#</th>
                     <th>Usuario</th>
                     <th>Nombre</th>
-                    <th>Edad</th>
+<!--                    <th>Edad</th>-->
                     <th>Email</th>
                     <th>Nivel</th>
                     <th></th>
@@ -113,12 +113,12 @@
                     <input  type="text" id="nombre" required>
                 </div> <!-- end .form-group -->
             </div> <!-- end .col-sm-6 -->
-            <div class="col-sm-6">
-                <div class="form-group">
-                    <label for="edad">Edad</label>
-                    <input  type="number" id="edad" required>
-                </div> <!-- end .form-group -->
-            </div> <!-- end .col-sm-6 -->
+<!--            <div class="col-sm-6">-->
+<!--                <div class="form-group">-->
+<!--                    <label for="edad">Edad</label>-->
+<!--                    <input  type="number" id="edad" required>-->
+<!--                </div> <!-- end .form-group -->
+<!--            </div> <!-- end .col-sm-6 -->
         </div> <!-- end .row -->
         <div class="row">
             <div class="col-sm-6">
@@ -129,7 +129,7 @@
             </div> <!-- end .col-sm-6 -->
         </div> <!-- end .row -->
         <div class="clearfix text-right">
-            <button type="button" class="button" onclick="guardaUsuarioEnWS()">Guardar</button>
+            <button type="button" class="button" onclick="guardaUsuario()">Guardar</button>
         </div> <!-- end .clearfix -->
     </div>
 </div>

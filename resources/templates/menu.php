@@ -51,7 +51,7 @@ $params = new UrlParams();
     <div class="container">
         <nav class="menu">
             <ul class="list-unstyled">
-                <li><a href="">Inicio Administrador</a></li>
+                <li <?php if(isset($_GET['amode']) && $_GET['amode'] == 'inicio'){ echo 'class="active"'; } ?>><a href="index.php?amode=inicio">Inicio Administrador</a></li>
                 <li <?php if(isset($_GET['page']) && $_GET['page'] == 'evento' && isset($_GET['amode']) && $_GET['amode'] == 'gestion'){ echo 'class="active"'; } ?>><a href="index.php?page=evento&amode=gestion">Gestionar Eventos</a></li>
                 <li <?php if(isset($_GET['page']) && $_GET['page'] == 'perfil' && isset($_GET['amode'])){ echo 'class="active"'; } ?>><a href="index.php?page=perfil&amode=gestion">Gestionar Usuarios</a></li>
                 <li <?php if(isset($_GET['page']) && $_GET['page'] == 'evento' && isset($_GET['amode']) && $_GET['amode'] == 'categoria'){ echo 'class="active"'; } ?>><a href="index.php?page=evento&amode=categoria">Gestionar Categorías</a></li>

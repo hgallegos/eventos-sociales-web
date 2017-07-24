@@ -12,7 +12,7 @@
             <a href=""><i class="pe-so-instagram"></i></a>
             <a href=""><i class="pe-so-google-plus"></i></a>
         </div>
-        <div class="right">Blablabla<a href="">+84 968796789</a></div> <!-- end .left -->
+<!--        <div class="right">Blablabla<a href="">+84 968796789</a></div> <!-- end .left -->
     </div> <!-- end .top -->
     <div class="bottom">Copyright &copy; 2017. All Rights Reserved By <a href="">Eventos-Sociales</a></div>
 </footer> <!-- end .footer -->
