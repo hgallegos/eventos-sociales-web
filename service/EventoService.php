@@ -140,6 +140,19 @@ Class EventoService{
         return $data;
     }
 
+    private function capturaNombreUsuario($id){
+        $db = $this->makeSQL();
+        if(!$stmt = $db->prepare("SELECT A.nombre FROM evento AS B JOIN usuario AS A ON (B.User_Id = A.Id) WHERE B.Id = ?")){
+            echo $db->error;
+            die;
+        }
+        $stmt->bind_param('s',$id);
+        $stmt->execute();
+        $resutl = $stmt->get_result();
+        $row = $resutl->fetch_assoc();
+        return $row['nombre'];
+    }
+
     private function makeSQL(){
         if(!$mysql = new mysqli(DBHOST, DBUSER, DBPASS, DBNAME)){
             http_response_code(406);

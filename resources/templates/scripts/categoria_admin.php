@@ -35,6 +35,20 @@
 
     $(document).ready(function() {
         table = $('#categoria_table').DataTable( {
+            language: {
+                lengthMenu: "Mostrar _MENU_ resultados por página",
+                zeroRecords: "Nada encontrado - lo sentimos",
+                info: "Mostrando página _PAGE_ de _PAGES_",
+                infoEmpty: "Registros no disponible",
+                infoFiltered: "(Filtrando de _MAX_ total)",
+                search: "Buscar",
+                paginate: {
+                    first:      "Primero",
+                    last:       "Último",
+                    next:       "Siguiente",
+                    previous:   "Anterior"
+                }
+            },
             ajax: {
                 url: "index.php?page=evento&fmode=true&function=ws_categorias",
                 type: "GET"

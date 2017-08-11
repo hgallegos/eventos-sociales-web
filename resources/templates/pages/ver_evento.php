@@ -62,6 +62,7 @@
                                 <li><span>Desde : </span><?= date("Y-m-d H:i",strtotime($data->fechaInicio)) ?></li>
                                 <li><span>Hasta : </span><?= date("Y-m-d H:i",strtotime($data->fechaFin)) ?></li>
                                 <li><span>Ubicación : </span><?= $data->pDireccion ?></li>
+                                <li><span>Obtenido de: </span> <?= $this->capturaNombreUsuario($_GET['id']); ?></li>
                             </ul>
                         </div> <!-- end .product-info -->
 

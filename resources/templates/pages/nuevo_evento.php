@@ -26,8 +26,8 @@
                                 <div class="input-group">
                                     <span class="input-group-addon">Nombre: </span>
                                     <input type="text" placeholder="Nombre evento" name="titulo" required>
-                                    <input type="hidden" name="pLat" value="-33.462399">
-                                    <input type="hidden" name="pLng" value="-70.608101">
+                                    <input type="hidden" name="pLat" id="pLat" value="-33.462399">
+                                    <input type="hidden" name="pLng" id="pLng" value="-70.608101">
                                 </div> <!-- end .input-group -->
                             </div> <!-- end .form-group -->
                             <div class="form-group">
@@ -39,13 +39,13 @@
                             <div class="form-group">
                                 <div class="input-group">
                                     <span class="input-group-addon">Desde: </span>
-                                    <input type="datetime" placeholder="2017-11-28 21:00:00" name="fechaInicio" required>
+                                    <input type="datetime-local" placeholder="2017-11-28 21:00:00" name="fechaInicio" required>
                                 </div> <!-- end .input-group -->
                             </div> <!-- end .form-group -->
                         <div class="form-group">
                             <div class="input-group">
                                 <span class="input-group-addon">Hasta: </span>
-                                <input type="datetime" placeholder="2017-12-28 21:00:00" name="fechaFin" required>
+                                <input type="datetime-local" placeholder="2017-12-28 21:00:00" name="fechaFin" required>
                             </div> <!-- end .input-group -->
                         </div> <!-- end .form-group -->
                             <div class="form-group">
@@ -82,9 +82,14 @@
                         <div class="form-group">
                             <div class="input-group">
                                 <span class="input-group-addon">Dirección: </span>
-                                <input type="text" placeholder="Dirección del evento" name="direccion" required>
+                                <input type="text" placeholder="Dirección del evento" name="direccion" id="direccion" required>
                             </div> <!-- end .input-group -->
                         </div> <!-- end .form-group -->
+                        <div class="form-group">
+                            <div class="input-group">
+                                <button type="button" class="button" id="buscarMap">Geolocalizar</button>
+                            </div>
+                        </div>
 
                         <div class="single-map" id="single-map"></div><br /><br />
                         <div class="product-quantity">
